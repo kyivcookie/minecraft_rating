@@ -1,0 +1,30 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+body{
+    color:#444;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.jumbotron {
+    background: #ade3ed; /* Old browsers */
+    background: -moz-linear-gradient(45deg,  #ade3ed 0%, #aeefc1 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#ade3ed), color-stop(100%,#aeefc1)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg,  #ade3ed 0%,#aeefc1 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(45deg,  #ade3ed 0%,#aeefc1 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg,  #ade3ed 0%,#aeefc1 100%); /* IE10+ */
+    background: linear-gradient(45deg,  #ade3ed 0%,#aeefc1 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ade3ed', endColorstr='#aeefc1',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.jumbotron h1 {
+    font-size: 50px;
+}
+
+.navbar.navbar-default.navbar-static-top{
+    margin-bottom: 0;
+}

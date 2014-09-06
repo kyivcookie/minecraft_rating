@@ -1,0 +1,1 @@
+json.extract! @server, :id, :user_id, :category_id, :ip, :vip, :port, :banner, :name, :country, :description, :website, :youtube_id, :votes, :disabled, :status, :votifier_key, :votifier_ip, :votifier_post, :players, :max_players, :server_version, :cache_time, :protocol, :created_at, :updated_at

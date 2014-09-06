@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  category_id: 1
+  ip: MyString
+  vip: 1
+  port: 1
+  banner: MyString
+  name: MyString
+  country: MyString
+  description: MyText
+  website: MyString
+  youtube_id: MyString
+  votes: 1
+  disabled: 1
+  status: 1
+  votifier_key: MyText
+  votifier_ip: MyString
+  votifier_post: MyString
+  players: 1
+  max_players: 1
+  server_version: MyString
+  cache_time: MyText
+  protocol: 1
+
+two:
+  user_id: 1
+  category_id: 1
+  ip: MyString
+  vip: 1
+  port: 1
+  banner: MyString
+  name: MyString
+  country: MyString
+  description: MyText
+  website: MyString
+  youtube_id: MyString
+  votes: 1
+  disabled: 1
+  status: 1
+  votifier_key: MyText
+  votifier_ip: MyString
+  votifier_post: MyString
+  players: 1
+  max_players: 1
+  server_version: MyString
+  cache_time: MyText
+  protocol: 1
