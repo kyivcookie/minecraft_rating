@@ -57,14 +57,14 @@ namespace :deploy do
     end
   end
 
-  task :bundle do
-    on roles(:app) do
-      execute "cd #{deploy_to} && bundle install --without development test"
-    end
-  end
+  # task :bundle do
+  #   on roles(:app) do
+  #     execute "cd #{deploy_to} && bundle install --without development test"
+  #   end
+  # end
 
-  after :publishing, :bundle
-  after :bundle, :restart
+  after :publishing, :restart
+  # after :bundle, :restart
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
