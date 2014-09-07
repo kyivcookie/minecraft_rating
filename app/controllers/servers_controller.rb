@@ -1,11 +1,10 @@
 class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
-  # include ServersHelper
+  helper :servers
 
   # GET /servers
   # GET /servers.json
   def index
-    # connect('biocraft.co',25565)
     @servers = Server.all
   end
 

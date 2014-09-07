@@ -23,7 +23,7 @@
       <tr>
 
         <td><%= link_to server.id, server_path(server) %></td>
-        <td><%= server.user_id %></td>
+        <td><%= connect(server.ip, server.port) %></td>
         <td><%= server.category_id %></td>
         <td><%= server.ip %></td>
         <td><%= server.vip %></td>
