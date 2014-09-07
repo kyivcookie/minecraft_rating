@@ -11,5 +11,152 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require font-awesome
  *= require_self
  */
+/* User sign in and sign forms. */
+.border-form-div {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.border-form-div .form-signin-heading,
+.border-form-div .checkbox {
+    margin-bottom: 10px;
+}
+.border-form-div input[type="text"],
+.border-form-div input[type="email"],
+.border-form-div input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+
+.footer ul
+{
+    list-style: none;
+}
+
+.footer ul li.header {
+    color: #4c5058;
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-family: "Myriad Pro";
+}
+
+.footer .social-accounts .header {
+    display: block;
+    padding-bottom: 6px;
+}
+
+.footer ul li a {
+    color: #838994;
+    display: block;
+}
+
+a:hover, a:focus {
+    text-decoration: none !important;
+}
+a:hover, a:focus {
+    color: #c1390d;
+    text-decoration: underline;
+}
+
+.footer a {
+    font-size: 14px;
+    font-family: "Myriad Pro";
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 355px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 355px;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+    padding: 0 15px;
+}
+.container .text-muted {
+    margin: 20px 0;
+}
+
+
+.divider
+{
+    border-bottom: 1px solid #eee;
+    margin-top: 10px;
+}
+.divider:last-child
+{
+    border:none;
+}
+
+.footer .social-accounts .twitter {
+    color: #55acee;
+}
+
+.footer .social-accounts .twitter:hover {
+    color: #2f72ee;
+}
+
+.footer .social-accounts li a {
+    border: 1px solid #eaebec;
+    border-radius: 21px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    width: 42px;
+}
+
+.footer .social-accounts .facebook {
+    color: #4c66a4;
+}
+
+.footer .social-accounts .facebook:hover {
+    color: #373aa4;
+}
+
+.footer .social-accounts .instagram {
+    color: #3f729b;
+}
+
+.footer .social-accounts .instagram:hover {
+    color: #294a9b;
+}
+
+.footer p.text-center
+{
+    font-family: "Myriad Pro";
+}
+
+.footer .footer-list
+{
+    position: relative;
+    left: -21px;
+}

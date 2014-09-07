@@ -49,8 +49,26 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><%= link_to 'Home', '/'  %></li>
-            <li><%= link_to 'Login', '#'  %></li>
-            <li><%= link_to 'Register', '#'  %></li>
+            <% if user_signed_in? %>
+                <%= drop_down 'My account' do %>
+                    <%= menu_item 'Add Server', '/servers/new' %>
+                    <%= drop_down_divider %>
+                    <%= menu_item 'My Servers', my_servers_path %>
+                    <%= drop_down_divider %>
+                    <%= menu_item 'My Comments', '/comments' %>
+                    <%= drop_down_divider %>
+                    <%= menu_item 'My Profile', '/profile' %>
+                    <%= drop_down_divider %>
+                    <%= menu_item 'Profile Settings', '/profile/settings' %>
+                    <%= drop_down_divider %>
+                    <%= menu_item 'Change Password', '/users/change_password' %>
+                    <%= drop_down_divider %>
+                    <%= menu_item 'Logout', destroy_user_session_path, :method => :delete %>
+                <% end %>
+            <% else %>
+                <li><%= link_to 'Login', user_session_path  %></li>
+                <li><%= link_to 'Register', new_user_registration_path  %></li>
+            <% end %>
             <li><%= link_to 'Contact', '#'  %></li>
           </ul>
         </div>
@@ -63,18 +81,73 @@
       </div>
     </div>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <%= bootstrap_flash %>
-          <%= yield %>
-        </div>
-      </div><!--/row-->
-
-      <footer>
-        <p>&copy; Company 2014</p>
-      </footer>
-
+      <!--<div class="panel panel-default">-->
+        <div class="row">
+          <div class="col-lg-12">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
+        </div><!--/row-->
+      <!--</div>-->
     </div> <!-- /container -->
-
+    <div class="footer">
+      <hr/>
+      <div class="container">
+        <div class="wrapper">
+          <div class="row">
+            <div class="col-md-4">
+              <%= image_tag '/uploads/images/logo_footer.png' %>
+            </div>
+            <div class="col-md-4 footer-list">
+              <div class="row">
+                <div class="col-xs-4">
+                  <ul>
+                    <li class="header">About Us</li>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Server</a></li>
+                    <li><a href="#">Terms</a></li>
+                  </ul>
+                </div>
+                <div class="col-xs-4">
+                  <ul>
+                    <li class="header">About Us</li>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Server</a></li>
+                    <li><a href="#">Terms</a></li>
+                  </ul>
+                </div>
+                <div class="col-xs-4">
+                  <ul>
+                    <li class="header">About Us</li>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Server</a></li>
+                    <li><a href="#">Terms</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="list-unlisted list-inline text-center social-accounts">
+                <li class="header">Join To Us</li>
+                <li><a class="twitter" href="#"><i class="fa fa-twitter fa-lg "></i></a></li>
+                <li><a class="facebook" href="#"><i class="fa fa-facebook fa-lg "></i></a></li>
+                <li><a class="instagram" href="#"><i class="fa fa-instagram fa-lg "></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p class="text-center">Minecraft Ratings © 2014</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

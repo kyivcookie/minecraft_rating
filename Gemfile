@@ -15,6 +15,7 @@ gem 'execjs'
 gem 'capistrano'
 gem 'therubyracer',  platforms: :ruby
 gem 'twitter-bootstrap-rails'
+gem 'carrierwave'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -24,6 +25,11 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'minecraft-query'
+gem 'devise'
+gem 'commontator', '~> 4.7.2'
+gem 'will_paginate-bootstrap'
+gem 'acts_as_votable'
+gem 'font-awesome-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

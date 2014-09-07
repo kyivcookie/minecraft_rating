@@ -15,3 +15,31 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+
+$(document).on("page:fetch", function()
+{
+    $('body').css('opacity','.5')
+});
+$(document).on("page:receive", function()
+{
+    $('body').css('opacity','1')
+});
+$(document).on('page:load', function()
+{
+    tabs.init()
+});
+var tabs = {
+    init: function()
+    {
+        $('#tabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
+    }
+};
+
+$(document).on('ready', function()
+{
+    tabs.init();
+});

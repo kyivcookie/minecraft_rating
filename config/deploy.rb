@@ -63,8 +63,8 @@ namespace :deploy do
     end
   end
 
-  after :publishing, :restart
-  # after :bundle, :restart
+  after :publishing, :bundle
+  after :bundle, :restart
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do

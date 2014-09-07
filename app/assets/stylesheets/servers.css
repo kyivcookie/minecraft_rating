@@ -28,3 +28,29 @@ body{
 .navbar.navbar-default.navbar-static-top{
     margin-bottom: 0;
 }
+
+.label
+{
+    margin-right: 5px;
+}
+
+.container .row {
+    padding-top: 10px;
+}
+
+.server-row-actions
+{
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+
+.table-reset
+{
+    display: inline-block;
+}
+
+ul#tabs
+{
+    margin-bottom: 20px;
+}

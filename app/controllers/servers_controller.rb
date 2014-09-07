@@ -1,16 +1,22 @@
 class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :my_servers]
+
   helper :servers
 
   # GET /servers
   # GET /servers.json
   def index
-    @servers = Server.all
+    @servers = Server.paginate :page => params[:page], :per_page => 20
   end
 
   # GET /servers/1
   # GET /servers/1.json
   def show
+  end
+
+  def my_servers
+    @servers = Server.where(:user_id => current_user.id).paginate :page => params[:page], :per_page => 2
   end
 
   # GET /servers/new
@@ -26,7 +32,6 @@ class ServersController < ApplicationController
   # POST /servers.json
   def create
     @server = Server.new(server_params)
-
     respond_to do |format|
       if @server.save
         format.html { redirect_to @server, notice: 'Server was successfully created.' }
