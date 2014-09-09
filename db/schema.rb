@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140908190123) do
+ActiveRecord::Schema.define(version: 20140909071914) do
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "commontator_comments", force: true do |t|
     t.string   "creator_type"
@@ -55,18 +62,11 @@ ActiveRecord::Schema.define(version: 20140908190123) do
 
   add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true, using: :btree
 
-  create_table "server_votes", force: true do |t|
-    t.integer  "server_id"
-    t.integer  "votes_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "servers", force: true do |t|
     t.integer  "user_id"
     t.integer  "category_id"
     t.string   "ip"
-    t.integer  "vip"
+    t.boolean  "vip",            default: false
     t.integer  "port"
     t.string   "banner"
     t.string   "name"
@@ -74,17 +74,17 @@ ActiveRecord::Schema.define(version: 20140908190123) do
     t.text     "description"
     t.string   "website"
     t.string   "youtube_id"
-    t.integer  "votes"
-    t.integer  "disabled"
-    t.integer  "status"
+    t.integer  "votes",          default: 0
+    t.boolean  "disabled",       default: false
+    t.boolean  "status",         default: true
     t.text     "votifier_key"
     t.string   "votifier_ip"
     t.string   "votifier_port"
     t.integer  "players"
     t.integer  "max_players"
     t.string   "server_version"
-    t.text     "cache_time"
-    t.integer  "protocol"
+    t.integer  "cache_time",     default: 0
+    t.boolean  "protocol",       default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

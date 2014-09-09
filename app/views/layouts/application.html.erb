@@ -61,7 +61,7 @@
                     <%= drop_down_divider %>
                     <%= menu_item 'Profile Settings', '/profile/settings' %>
                     <%= drop_down_divider %>
-                    <%= menu_item 'Change Password', '/users/change_password' %>
+                    <%= menu_item 'Change Password', new_user_password_path %>
                     <%= drop_down_divider %>
                     <%= menu_item 'Logout', destroy_user_session_path, :method => :delete %>
                 <% end %>

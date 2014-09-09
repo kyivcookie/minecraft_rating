@@ -1,6 +1,11 @@
+require 'minecraft-query'
 class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :update, :my_servers]
+  # before_action :banner do
+  #   layout false
+  #   layout 'application', :except => :view
+  # end
 
   helper :servers
 
@@ -13,6 +18,12 @@ class ServersController < ApplicationController
   # GET /servers/1
   # GET /servers/1.json
   def show
+  end
+
+  # GET /servers/1/banner
+  def banner
+    @server = Server.find(params[:id])
+    render :layout => false
   end
 
   def my_servers
@@ -32,6 +43,7 @@ class ServersController < ApplicationController
   # POST /servers.json
   def create
     @server = Server.new(server_params)
+    @server.user_id = current_user.id
     respond_to do |format|
       if @server.save
         format.html { redirect_to @server, notice: 'Server was successfully created.' }
