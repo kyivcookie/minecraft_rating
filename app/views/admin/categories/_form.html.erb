@@ -1,0 +1,10 @@
+<%= bootstrap_form_for @category, url:admin_categories_path, :html => { :class => "form-horizontal category" } do |f| %>
+
+      <%= f.text_field :name, :class => 'form-control' %>
+      <%= f.select :parent_id, Category.all.map {|c| [c.name, c.id]} %>
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            admin_categories_path, :class => 'btn btn-default' %>
+
+<% end %>

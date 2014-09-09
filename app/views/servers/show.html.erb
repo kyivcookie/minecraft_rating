@@ -1,7 +1,7 @@
 <%- model_class = Server -%>
+<% s = @server.get_server_status %>
 <div class="page-header">
   <h1><%=t '.title', :default => @server.name %></h1>
-  <%= image_tag @server.banner %>
 </div>
 
 <div class="panel-body">
@@ -31,9 +31,8 @@
         <tr>
           <td><i class="fa fa-clock-o"></i> <%= model_class.human_attribute_name(:status) %></td>
           <td>
-            <% if @server.get_status[0][:label] == 'success' %>
-                <div class="label label-success"><i class="fa fa-check"></i></div>
-            <% end %>
+            <span class="label label-<%= @server.get_status[0][:label] %>"><i class="fa fa-check"></i></span>
+          </td>
         </tr>
         <tr>
           <td><i class="fa fa-random"></i> <%= model_class.human_attribute_name(:ip) %></td>
@@ -45,7 +44,7 @@
         </tr>
         <tr>
           <td><i class="fa fa-tasks"></i> MOTD</td>
-          <td></td>
+          <td><%= s[:motd] %></td>
         </tr>
         <tr>
           <td><i class="fa fa-users"></i> <%= model_class.human_attribute_name(:players) %></td>
@@ -61,7 +60,9 @@
         </tr>
         <tr>
           <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
-          <td></td>
+          <td>
+           <span class="label label-success"><%= @server.get_category.name %></span>
+          </td>
         </tr>
         <tr>
           <td><i class="fa fa-cog"></i> <%= model_class.human_attribute_name(:website) %></td>
@@ -69,7 +70,7 @@
         </tr>
         <tr>
           <td><i class="fa fa-refresh"></i> Last Update</td>
-          <td></td>
+          <td><%= (Time.now.to_i - @server.updated_at.to_i) / 60 %> minutes ago</td>
         </tr>
         <tr>
           <td><i class="fa fa-thumbs-up"></i> <%= model_class.human_attribute_name(:votes) %></td>
@@ -81,7 +82,7 @@
       azaza
     </div>
     <div class="tab-pane" id="banners">
-      ololo
+      <%= render 'partials/banner', server: @server %>
     </div>
   </div>
 </div>

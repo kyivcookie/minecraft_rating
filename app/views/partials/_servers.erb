@@ -1,8 +1,9 @@
 <%- model_class = Server -%>
 <% servers.each do |server| %>
+    <% s = server.get_server_status %>
     <div class="row">
       <div class="col-lg-5">
-        <%= link_to image_tag(server.banner), server_path(server), title: server.name, alt: server.name %>
+        <%= link_to image_tag(server.banner,  style: 'max-width:480px'), server_path(server), title: server.name, alt: server.name %>
         <div class="labels">
           <% status = server.get_status[0] %>
           <div class="label label-<%= status[:label] %>">
@@ -21,7 +22,7 @@
           <tr> <th>Players</th>
             <td>
               <span class="label label-success">
-                <%= server.players %>/<%= server.max_players %>
+                <%= s[:current_players] %> / <%= s[:max_players] %>
               </span>
             </td>
           </tr>

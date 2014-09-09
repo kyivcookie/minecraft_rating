@@ -1,178 +1,31 @@
-<%= form_for @server, :html => { :class => "form-horizontal server" } do |f| %>
+<div class="border-form-div"  style="max-width: 550px;">
 
-    <% if @server.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@server.errors.count, "error") %> prohibited this server from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @server.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
+<%= bootstrap_form_for @server, :html => { :class => "form-horizontal server" } do |f| %>
 
-  <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :user_id, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:user_id]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :category_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :category_id, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:category_id]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :ip, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :ip, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:ip]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :vip, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :vip, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:vip]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :port, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :port, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:port]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :banner, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.file_field :banner, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:banner]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:name]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :country, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :country, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:country]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :description, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:description]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :website, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :website, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:website]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :youtube_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :youtube_id, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:youtube_id]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :votes, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :votes, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:votes]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :disabled, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :disabled, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:disabled]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :status, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :status, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:status]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :votifier_key, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :votifier_key, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:votifier_key]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :votifier_ip, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :votifier_ip, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:votifier_ip]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :votifier_port, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :votifier_port, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:votifier_port]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :players, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :players, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:players]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :max_players, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :max_players, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:max_players]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :server_version, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :server_version, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:server_version]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :cache_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :cache_time, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:cache_time]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :protocol, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :protocol, :class => 'form-control' %>
-    </div>
-    <%= error_span(@server[:protocol]) %>
-  </div>
+    <%= f.text_field :name, label: 'Server name, display for all users*', placeholder: 'Best Minecraft Server in the WORD!' %>
+    <%= f.text_field :ip, label: 'Server Address', placeholder: 'Example: biocraft.co or 21.55.256.23', :onchange => 'console.log("asdasd")'%>
+    <%= f.text_field :port, value: 25565 %>
+    <%=
+        f.select :protocol, [
+            ['New Protocol', 1],
+            ['Old Protocol', 0]
+        ],{
 
+    }, {
+            #multiple: true,
+            #class: 'chzn-select'
+    }
+    %>
+    <%= f.file_field :banner %>
+    <%= f.url_field :website %>
+    <%= f.url_field :youtube_id %>
+    <%= f.select :category_id, Category.all.map {|c| [c.name, c.id]} , {label:'Categories, you can select 4 category maximum'}, {}%>
+    <%= f.text_field :votifier_key, label: ('Votofier Key, ' + link_to(' read more about Votifier', 'http://dev.bukkit.org/bukkit-plugins/votifier/', target: '_blank')).html_safe %>
+    <%= f.text_field :votifier_port %>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             servers_path, :class => 'btn btn-default' %>
 
 <% end %>
+</div>
