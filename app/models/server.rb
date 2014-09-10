@@ -36,10 +36,10 @@ class Server < ActiveRecord::Base
         self.status = 0
       end
       self.cache_time = Time.now + (60*10)
-      self.save!
+      self.save
     status
     else
-      self.save!
+      self.save
       self.set_server_vars
     end
   end

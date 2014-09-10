@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1><%=t '.title', :default => 'Users' %></h1>
+</div>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% if @admin_users.length %>
+          <table class="table table-bordered">
+            <tr>
+              <th>User Name</th>
+              <th>Actions</th>
+            </tr>
+            <% @admin_users.each do |u| %>
+                <tr>
+                  <td><%= link_to u.email, '/profiles', target: :blank %></td>
+                  <td>
+                    <%= render 'partials/user_actions', user: u %>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+      <% end %>
+      <%= will_paginate @admin_users, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+</div>

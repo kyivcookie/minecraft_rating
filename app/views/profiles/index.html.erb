@@ -1,0 +1,36 @@
+<div class="page-header">
+  <h1><%=t '.title', :default => "Hello, #{@profile.email}" %></h1>
+</div>
+<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="col-md-2">
+        <%= gravatar_image_tag(@profile.email.gsub('spam', 'mdeering'), :alt => 'Michael Deering', :gravatar => {:size =>150, default: :wavatar}) %>
+      </div>
+    <div class="col-md-4">
+      <ul style="list-style: none">
+        <li>
+          <strong>Username:</strong> <%= current_user.email %>
+        </li>
+        <li>
+          <strong>Registration Date:</strong> <%= current_user.created_at %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <table class="table table-bordered" style="background:white;">
+    <thead>
+    <tr>
+      <th>My Comments</th>
+      <th>Server</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @comments.each do |c| %>
+        <tr>
+            <td><%= c.body %></td>
+            <td><%= c.thread.commontable ? (link_to c.thread.commontable.name, server_path(c.thread.commontable), target: :blank) : '' %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,28 @@
+<%- model_class = Commontator::Comment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th><%= model_class.human_attribute_name(:id) %></th>
+    <th><%= model_class.human_attribute_name('Comment') %></th>
+    <th><%= model_class.human_attribute_name('Comment Target') %></th>
+    <th><%=t '.actions', :default => t("helpers.actions") %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @admin_comments.each do |c| %>
+      <tr>
+        <td><%= link_to c.id, admin_category_path(c) %></td>
+        <td><%= c.body %></td>
+        <td><%= c.thread.commontable ? (link_to c.thread.commontable.name, server_path(c.thread.commontable), target: :blank) : '' %></td>
+        <td></td>
+        <td>
+        <!--TODO add comments actions for admin::comments controller -->
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @admin_comments, renderer: BootstrapPagination::Rails %>

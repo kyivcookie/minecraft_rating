@@ -1,10 +1,11 @@
+<% title = get_setting('SITE_NAME') %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Minecraft Rating" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : title %></title>
     <%= csrf_meta_tags %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -45,25 +46,29 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">MinecraftRating</a>
+        <a class="navbar-brand" href="/"><%= title %></a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><%= link_to 'Home', '/'  %></li>
             <% if user_signed_in? %>
                 <%= drop_down 'My account' do %>
-                    <%= menu_item 'Add Server', '/servers/new' %>
-                    <%= drop_down_divider %>
+                    <%= menu_item 'Add Server', new_server_path %>
                     <%= menu_item 'My Servers', my_servers_path %>
-                    <%= drop_down_divider %>
-                    <%= menu_item 'My Comments', '/comments' %>
-                    <%= drop_down_divider %>
-                    <%= menu_item 'My Profile', '/profile' %>
-                    <%= drop_down_divider %>
-                    <%= menu_item 'Profile Settings', '/profile/settings' %>
-                    <%= drop_down_divider %>
+                    <%= menu_item 'My Profile', '/profiles' %>
                     <%= menu_item 'Change Password', new_user_password_path %>
-                    <%= drop_down_divider %>
                     <%= menu_item 'Logout', destroy_user_session_path, :method => :delete %>
+                <% end %>
+                <% if current_user.id == 1 %>
+                    <%= drop_down 'Admin Panel' do %>
+                        <%= menu_item 'Settings', admin_settings_path %>
+                        <%= menu_item 'Server Managment', admin_servers_path %>
+                        <%= menu_item 'Users Managment', admin_users_path %>
+                        <%= menu_item 'Categories', admin_categories_path %>
+                        <%= menu_item 'Comments Managment', admin_comments_path %>
+                        <%= menu_item 'Statistics', '#' %>
+                        <%= menu_item 'Payments', '#' %>
+                        <%= menu_item 'Reset Votes', '#' %>
+                    <% end %>
                 <% end %>
             <% else %>
                 <li><%= link_to 'Login', user_session_path  %></li>
@@ -143,7 +148,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <p class="text-center">Minecraft Ratings © 2014</p>
+              <p class="text-center"><%= title %> © <%= Time.now.year %></p>
             </div>
           </div>
         </div>

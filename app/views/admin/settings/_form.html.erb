@@ -1,0 +1,13 @@
+<%= bootstrap_form_for 'settings' do |f| %>
+  <% if @admin_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_setting.errors.count, "error") %> prohibited this admin_setting from being saved:</h2>
+
+      <ul>
+      <% @admin_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

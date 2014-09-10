@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1><%=t '.title', :default => 'Servers' %></h1>
+</div>
+<div class="container">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% if @admin_servers.length %>
+            <table class="table table-bordered">
+              <tr>
+                <th>Server Name</th>
+                <th>Actions</th>
+              </tr>
+                <% @admin_servers.each do |s| %>
+                  <tr>
+                    <td><%= link_to s.name, server_path(s), target: :blank %></td>
+                    <td>
+                      <%= render 'partials/server_actions', server: s %>
+                    </td>
+                  </tr>
+                <% end %>
+            </table>
+        <% end %>
+        <%= will_paginate @admin_servers, renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+</div>

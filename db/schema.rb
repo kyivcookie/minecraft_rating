@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140909071914) do
+ActiveRecord::Schema.define(version: 20140909155254) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -85,6 +85,12 @@ ActiveRecord::Schema.define(version: 20140909071914) do
     t.string   "server_version"
     t.integer  "cache_time",     default: 0
     t.boolean  "protocol",       default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "settings", primary_key: "key", force: true do |t|
+    t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

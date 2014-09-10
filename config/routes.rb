@@ -3,13 +3,16 @@ Rails.application.routes.draw do
   mount Commontator::Engine => '/commontator'
 
   resources :servers
+  resources :profiles, as: :profile
   get 'my_servers' => 'servers#my_servers'
 
   # Example resource route within a namespace:
     namespace :admin do
-      # Directs /admin/products/* to Admin::ProductsController
-      # (app/controllers/admin/products_controller.rb)
       resources :categories
+      resources :settings
+      resources :servers
+      resources :users
+      resources :comments
     end
 
   # The priority is based upon order of creation: first created -> highest priority.

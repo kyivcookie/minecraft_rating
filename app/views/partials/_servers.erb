@@ -36,18 +36,7 @@
           </tr>
         </table>
         <% if current_user && current_user.id == server.user_id %>
-            <div class="server-row-actions">
-              <%= link_to t('.edit', :default => t('helpers.links.edit')),
-                          edit_server_path(server), :class => 'btn btn-default btn-xs' %>
-              <%= link_to t('.destroy', :default => t('helpers.links.destroy')),
-                          server_path(server),
-                          :method => :delete,
-                          :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?')) },
-                          :class => 'btn btn-xs btn-danger' %>
-              <%= link_to t('.view', :default => t('helpers.links.view')),
-                          server_path(server),
-                          :class => 'btn btn-xs btn-info' %>
-            </div>
+           <%= render 'partials/server_actions', server: server %>
         <% end %>
       </div>
       <div class="col-lg-4">

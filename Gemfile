@@ -31,6 +31,7 @@ gem 'commontator', '~> 4.7.2'
 gem 'will_paginate-bootstrap'
 gem 'acts_as_votable'
 gem 'font-awesome-rails'
+gem 'gravatar_image_tag'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
