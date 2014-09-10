@@ -54,3 +54,10 @@ ul#tabs
 {
     margin-bottom: 20px;
 }
+
+.addthis_sharing_toolbox {
+    display: inline-block;
+    float: right;
+    position: relative;
+    top: 7px;
+}

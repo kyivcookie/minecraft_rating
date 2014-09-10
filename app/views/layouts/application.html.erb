@@ -1,11 +1,13 @@
-<% title = get_setting('SITE_NAME') %>
+<%
+   settings = get_settings
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : title %></title>
+    <title><%= content_for?(:title) ? yield(:title) : settings[:SITE_NAME] %></title>
     <%= csrf_meta_tags %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -46,7 +48,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><%= title %></a>
+        <a class="navbar-brand" href="/"><%= settings[:SITE_NAME] %></a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><%= link_to 'Home', '/'  %></li>
@@ -140,15 +142,21 @@
             <div class="col-md-12">
               <ul class="list-unlisted list-inline text-center social-accounts">
                 <li class="header">Join To Us</li>
-                <li><a class="twitter" href="#"><i class="fa fa-twitter fa-lg "></i></a></li>
-                <li><a class="facebook" href="#"><i class="fa fa-facebook fa-lg "></i></a></li>
-                <li><a class="instagram" href="#"><i class="fa fa-instagram fa-lg "></i></a></li>
+                <% if settings[:TWITTER_LINK] %>
+                    <li><a class="twitter" href="<%= settings[:TWITTER_LINK] %>" target="_blank"><i class="fa fa-twitter fa-lg "></i></a></li>
+                <% end %>
+                <% if settings[:FACEBOOK_LINK] %>
+                    <li><a class="facebook" href="<%= settings[:FACEBOOK_LINK] %>" target="_blank"><i class="fa fa-facebook fa-lg "></i></a></li>
+                <% end %>
+                <% if settings[:INSTAGRAM_LINK] %>
+                    <li><a class="instagram" href="<%= settings[:INSTAGRAM_LINK] %>" target="_blank"><i class="fa fa-instagram fa-lg "></i></a></li>
+                <% end %>
               </ul>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <p class="text-center"><%= title %> © <%= Time.now.year %></p>
+              <p class="text-center"><%= settings[:SITE_NAME] %> © <%= Time.now.year %></p>
             </div>
           </div>
         </div>

@@ -28,6 +28,7 @@ class MinecraftPing
     begin
       timeout(1) do
         # read server response
+
         if socket.read(1).unpack('C').first != 0xFF # Kick packet
           raise 'unexpected server response packet'
         end
@@ -57,7 +58,24 @@ class MinecraftPing
       end
     end
     rescue StandardError => e
-      return e
+      if e
+        timeout(1) do
+          s = TCPSocket.open(@host, @port)
+
+          s.puts "\xFE\x01"
+          repl = s.gets
+          s.close
+          qstring = repl[3,repl.length].force_encoding("utf-16be").encode("utf-8")
+          qarray = qstring.split("\0")
+          qdict = {}
+          @protocol_version = qarray[1]
+          @server_version = qarray[2]
+          @motd = qarray[3]
+          @players_online = qarray[4]
+          @players_max = qarray[5]
+          raise qarray
+        end
+      end
   end
 
   private

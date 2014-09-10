@@ -6,6 +6,7 @@ class Admin::SettingsController < ApplicationController
   # GET /admin/settings.json
   def index
     @admin_setting =  Settings.all
+    @uploader = SettingsUploader.new
   end
 
   # GET /admin/settings/1
@@ -29,8 +30,14 @@ class Admin::SettingsController < ApplicationController
     params[:settings].each do |s|
       setting = Settings.where key: s[0]
       setting = setting[0]
-      # setting.value = s[1]
-      setting.update value: s[1]
+      if s[0] == 'SERVER_AD_BANNER'
+        uploader = SettingsUploader.new
+        uploader.store!(s[1])
+        setting.update value: uploader.filename
+        @uploader = uploader
+      else
+        setting.update value: s[1]
+      end
     end
     respond_to do |format|
       format.html {render :index, notice: 'Setting was successfully updated.' }

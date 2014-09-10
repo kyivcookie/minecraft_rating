@@ -3,7 +3,14 @@
 <% settings = Settings.all %>
 <%= bootstrap_form_for 'settings', url: admin_settings_path do |f| %>
     <% settings.each do |s| %>
-        <%= f.text_field s[:key], value: s[:value] %>
+          <% if s[:key] == 'SERVER_AD_BANNER' %>
+              <%= f.file_field s[:key], value: s[:value] %>
+              <div class="pane">
+                <%= image_tag "/uploads/images/banners/#{s[:value]}", width: '300' %>
+              </div>
+          <% else %>
+              <%= f.text_field s[:key], value: s[:value] %>
+          <% end %>
     <% end %>
     <%= f.submit %>
 <% end %>

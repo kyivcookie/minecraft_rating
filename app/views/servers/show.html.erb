@@ -1,7 +1,10 @@
 <%- model_class = Server -%>
-<% s = @server.get_server_status %>
+<%
+    s = @server.get_server_status
+    settings = get_settings
+%>
 <div class="page-header">
-  <h1><%=t '.title', :default => @server.name %></h1>
+  <h1><%=t '.title', :default => @server.name %> <div class="addthis_sharing_toolbox"></div></h1>
 </div>
 
 <div class="panel-body">
@@ -27,56 +30,72 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="info">
-      <table class="table table-bordered">
-        <tr>
-          <td><i class="fa fa-clock-o"></i> <%= model_class.human_attribute_name(:status) %></td>
-          <td>
-            <span class="label label-<%= @server.get_status[0][:label] %>"><i class="fa fa-check"></i></span>
-          </td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-random"></i> <%= model_class.human_attribute_name(:ip) %></td>
-          <td> <%= @server.ip %></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:port) %></td>
-          <td><%= @server.port %></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-tasks"></i> MOTD</td>
-          <td><%= s[:motd] %></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-users"></i> <%= model_class.human_attribute_name(:players) %></td>
-          <td><%= @server.players %></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-wrench"></i> <%= model_class.human_attribute_name(:server_version) %></td>
-          <td><%= @server.server_version %></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-flag"></i> <%= model_class.human_attribute_name(:country) %></td>
-          <td><%= @server.country %></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
-          <td>
-           <span class="label label-success"><%= @server.get_category.name %></span>
-          </td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-cog"></i> <%= model_class.human_attribute_name(:website) %></td>
-          <td><%= @server.website %></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-refresh"></i> Last Update</td>
-          <td><%= (Time.now.to_i - @server.updated_at.to_i) / 60 %> minutes ago</td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-thumbs-up"></i> <%= model_class.human_attribute_name(:votes) %></td>
-          <td><%= @server.votes %></td>
-        </tr>
-      </table>
+      <div class="col-md-6">
+        <table class="table table-bordered">
+          <tr>
+            <td><i class="fa fa-clock-o"></i> <%= model_class.human_attribute_name(:status) %></td>
+            <td>
+              <span class="label label-<%= @server.get_status[0][:label] %>"><i class="fa fa-check"></i></span>
+            </td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-random"></i> <%= model_class.human_attribute_name(:ip) %></td>
+            <td> <%= @server.ip %></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:port) %></td>
+            <td><%= @server.port %></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-tasks"></i> MOTD</td>
+            <td><%= s[:motd] %></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-users"></i> <%= model_class.human_attribute_name(:players) %></td>
+            <td><%= @server.players %></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-wrench"></i> <%= model_class.human_attribute_name(:server_version) %></td>
+            <td><%= @server.server_version %></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-flag"></i> <%= model_class.human_attribute_name(:country) %></td>
+            <td><%= @server.country %></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
+            <td>
+              <span class="label label-success"><%= @server.get_category.name %></span>
+            </td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-cog"></i> <%= model_class.human_attribute_name(:website) %></td>
+            <td><%= @server.website %></td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-refresh"></i> Last Update</td>
+            <td><%= (Time.now.to_i - @server.updated_at.to_i) / 60 %> minutes ago</td>
+          </tr>
+          <tr>
+            <td><i class="fa fa-thumbs-up"></i> <%= model_class.human_attribute_name(:votes) %></td>
+            <td><%= @server.votes %></td>
+          </tr>
+        </table>
+
+      </div>
+      <% if @server.youtube_id? %>
+          <div class="col-md-4">
+            <iframe width="450" height="310" src="<%= @server.youtube_id %>" frameborder="0" allowfullscreen></iframe>
+          </div>
+      <% else %>
+          <div class="col-md-4">
+            <% unless settings[:SERVER_AD_BANNER].empty? %>
+                <%= link_to (image_tag "/uploads/images/banners/#{settings[:SERVER_AD_BANNER]}", width: '450'), settings[:SERVER_AD_BANNER_LINK] %>
+            <% else %>
+                <%= link_to (image_tag '/uploads/images/banners/your-ad-here.jpg', width: '450'), '#' %>
+            <% end %>
+          </div>
+      <% end %>
     </div>
     <div class="tab-pane" id="votes">
       azaza
@@ -100,3 +119,7 @@
 <% end %>
 
 <%= commontator_thread(@server) %>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-541043c350a2f825"></script>
+
