@@ -1,6 +1,7 @@
 class Server < ActiveRecord::Base
   mount_uploader :banner, BannerUploader
   # acts_as_commontator
+  acts_as_votable
   acts_as_commontable
 
   validates :ip,

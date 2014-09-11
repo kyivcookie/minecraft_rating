@@ -61,3 +61,78 @@ ul#tabs
     position: relative;
     top: 7px;
 }
+
+
+table.vip-table thead,
+table.rank-table thead
+{
+    background: #3f729b;
+    color:#ffffff;
+}
+
+table.vip-table thead th,
+table.rank-table thead th
+{
+    line-height: 29px;
+    font-size: 18px;
+}
+
+table.vip-table tbody td.rating-name,
+table.rank-table tbody td.rating-name
+{
+    max-width: 200px;
+}
+
+table.vip-table tbody,
+table.rank-table tbody
+{
+    text-align: center;
+}
+
+table.vip-table .rating-icon,       table.rank-table .rating-icon,
+table.vip-table .rating-banner,     table.rank-table .rating-banner,
+table.vip-table .rating-players,    table.rank-table .rating-players,
+table.vip-table .rating-status,     table.rank-table .rating-status
+{
+    line-height: 82px;
+}
+
+table.vip-table .rating-players,
+table.rank-table .rating-players
+{
+    font-size: 18px;
+}
+
+table.vip-table td.rating-name,
+table.rank-table td.rating-name
+{
+    vertical-align: inherit;
+}
+
+table.vip-table .rating-icon div.rating-icon-wrapper,
+table.rank-table .rating-icon div.rating-icon-wrapper
+{
+    display: inline-block;
+    height: 44px;
+    width: 44px;
+    vertical-align: inherit;
+    border-radius:8px;
+    background: #3f729b;
+    position: relative;
+    top: 20px;
+}
+
+table.vip-table .rating-icon i,
+table.rank-table .rating-icon i
+{
+    color: gold;
+    display: inline-block;
+    font-size: 39px;
+    position: relative;
+    top: -10px;
+}
+
+table.rank-table .rating-icon i
+{
+    top:-18px
+}

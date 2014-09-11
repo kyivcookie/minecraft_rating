@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140909155254) do
+ActiveRecord::Schema.define(version: 20140911125350) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -62,6 +62,17 @@ ActiveRecord::Schema.define(version: 20140909155254) do
 
   add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true, using: :btree
 
+  create_table "payments", force: true do |t|
+    t.integer  "server_id"
+    t.integer  "user_id"
+    t.integer  "amount"
+    t.integer  "quantity"
+    t.string   "payer_email"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "servers", force: true do |t|
     t.integer  "user_id"
     t.integer  "category_id"
@@ -108,6 +119,7 @@ ActiveRecord::Schema.define(version: 20140909155254) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "voted_at",               default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

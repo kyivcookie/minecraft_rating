@@ -11,9 +11,9 @@
 <% else %>
   <div id="thread_<%= thread.id %>_new_comment_div" class="thread_new_comment"></div>
 
-  <span id="thread_<%= thread.id %>_new_comment_link_span" class="thread_new_comment_link">
+  <span id="thread_<%= thread.id %>_new_comment_link_span" class="thread_new_comment_link" style="text-align: center;">
     <%= link_to t('commontator.comment.actions.new'),
-        commontator.new_thread_comment_path(thread, :per_page => per_page), :remote => true, :class => 'btn btn-success' %>
+        commontator.new_thread_comment_path(thread, :per_page => per_page), :remote => true, :class => 'btn btn-success', style:'font-size:36px' %>
   </span>
 <% end %>
 

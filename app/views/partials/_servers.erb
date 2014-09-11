@@ -1,48 +1,35 @@
 <%- model_class = Server -%>
+<% counter = 0 %>
+<table class="table rank-table">
+  <thead>
+  <tr>
+    <th><i class="fa fa-thumbs-o-up"></i> Rank</th>
+    <th><i class="fa fa-info-circle"></i> Name</th>
+    <th><i class="fa fa-list"></i> Server</th>
+    <th><i class="fa fa-users"></i> Players</th>
+    <th><i class="fa fa-cogs"></i> Status</th>
+  </tr>
+  </thead>
+  <tbody>
 <% servers.each do |server| %>
-    <% s = server.get_server_status %>
-    <div class="row">
-      <div class="col-lg-5">
-        <%= link_to image_tag(server.banner,  style: 'max-width:480px'), server_path(server), title: server.name, alt: server.name %>
-        <div class="labels">
-          <% status = server.get_status[0] %>
-          <div class="label label-<%= status[:label] %>">
-            <%= status[:status] %>
+    <%
+       s = server.get_server_status
+    %>
+      <tr>
+        <td class="rating-icon">
+          <div class="rating-icon-wrapper">
+            <i><%= counter += 1 %></i>
           </div>
-          <div class="label label-info">
-            <%= server.server_version %>
-          </div>
-          <div class="label label-primary">
-            <%= server.name %>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <table class="table-reset">
-          <tr> <th>Players</th>
-            <td>
-              <span class="label label-success">
-                <%= s[:current_players] %> / <%= s[:max_players] %>
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Votes</th>
-            <td><span class="label label-primary"><%= server.votes %></span></td>
-          </tr>
-          <tr>
-            <th>Rating</th>
-            <td><span class="label label-primary">0</span></td>
-          </tr>
-        </table>
-        <% if current_user && current_user.id == server.user_id %>
-           <%= render 'partials/server_actions', server: server %>
-        <% end %>
-      </div>
-      <div class="col-lg-4">
-        <%= server.description %>
-      </div>
-    </div>
-    <div class="divider"></div>
+        </td>
+        <td class="rating-name">
+         <div> <%= link_to server.name, server, class:'server-name' %> </div>
+        </td>
+        <td class="rating-banner"><%= link_to (image_tag server.banner, width: '500'), server %></td>
+        <td class="rating-players"><b><%= s[:current_players] %> / <%= s[:max_players] %></b></td>
+        <td class="rating-status"> <div class="label label-success">online</div> </td>
+      </tr>
 <% end %>
+  </tbody>
+</table>
+
 <%= will_paginate servers, renderer: BootstrapPagination::Rails %>

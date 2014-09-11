@@ -1,6 +1,6 @@
 require 'minecraft-query'
 class ServersController < ApplicationController
-  before_action :set_server, only: [:show, :edit, :update, :destroy]
+  before_action :set_server, only: [:show, :edit, :update, :destroy, :vote]
   before_action :authenticate_user!, only: [:new, :edit, :update, :my_servers]
   # before_action :banner do
   #   layout false
@@ -12,7 +12,8 @@ class ServersController < ApplicationController
   # GET /servers
   # GET /servers.json
   def index
-    @servers = Server.paginate :page => params[:page], :per_page => 20
+    @vip     = Server.where('vip = 1')
+    @servers = Server.where('vip = 0').order('votes DESC').paginate :page => params[:page], :per_page => 20
   end
 
   # GET /servers/1
@@ -28,6 +29,16 @@ class ServersController < ApplicationController
 
   def my_servers
     @servers = Server.where(:user_id => current_user.id).paginate :page => params[:page], :per_page => 2
+  end
+
+  def vote
+    #todo why cache don't work fine?
+    @server.increment! :votes
+    current_user.update(voted_at: Time.now.to_i)
+    sleep(3)
+    respond_to do |format|
+      format.json {render :json => 'voted'}
+    end
   end
 
   # GET /servers/new

@@ -16,17 +16,20 @@
       </a>
     </li>
     <li>
-        <a href="#votes">
-          <i class="fa fa-thumbs-o-up"></i>
-          Votes
-        </a>
-    </li>
-    <li>
       <a href="#banners">
         <i class="fa fa-file-image-o"></i>
         Banners
       </a>
     </li>
+    <!---- REPUTATION ---->
+    <% if current_user && @server.user_id == current_user.id %>
+        <li>
+          <a href="#reputation" style="background: #ffc1bc; color:#c1390d;">
+            <i class="fa fa-thumbs-o-up"></i>
+            Buy Reputation
+          </a>
+        </li>
+    <% end %>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="info">
@@ -78,7 +81,7 @@
           </tr>
           <tr>
             <td><i class="fa fa-thumbs-up"></i> <%= model_class.human_attribute_name(:votes) %></td>
-            <td><%= @server.votes %></td>
+            <td id="vote_row"><%= @server.votes  %></td>
           </tr>
         </table>
 
@@ -97,14 +100,30 @@
           </div>
       <% end %>
     </div>
-    <div class="tab-pane" id="votes">
-      azaza
+    <!---- REPUTATION ---->
+    <% if current_user && @server.user_id == current_user.id %>
+    <div class="tab-pane" id="reputation" style="position:relative;top: 158px;">
+      <%= render 'payments/form', payment: Payment.new(server_id: @server.id, user_id: current_user.id) %>
     </div>
+    <% end %>
     <div class="tab-pane" id="banners">
       <%= render 'partials/banner', server: @server %>
     </div>
   </div>
 </div>
+    <% if current_user && current_user.can_vote? %>
+        <%= link_to 'Vote for this server', vote_path,
+                      class: 'btn btn-success btn-large',
+                      id: 'btn-vote',
+                      remote: true,
+                      method: :post,
+                      data: {
+                              disable_with: 'Submitting...'
+                      }
+        %>
+    <% else %>
+        <button class="btn btn-danger" data-loading-text="azaza" disabled="disabled">You have been voted today, see you tomorrow</button>
+    <% end %>
 
 <% if current_user && current_user.id == @server.user_id %>
     <%= link_to t('.back', :default => t("helpers.links.back")),
@@ -120,6 +139,27 @@
 
 <%= commontator_thread(@server) %>
 
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-541043c350a2f825"></script>
 
+<script>
+$(document).on('ready', function()
+{
+    $(document).ajaxComplete(function(status, data, xhr)
+    {
+        if(data.responseText == 'voted')
+        {
+            $('#btn-vote').attr('disabled', 'disabled').toggleClass('btn-success').addClass('btn-danger').text('Thanks for your vote!');
+
+            var counter = $('#vote_row'),
+                count = parseInt(counter.text());
+            counter.text(count + 1)
+        }
+    })
+})
+</script>
+
+<style>
+  .tab-pane
+  {
+      min-height: 500px;
+  }
+</style>

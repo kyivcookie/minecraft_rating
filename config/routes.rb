@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :payments
+
   devise_for :users
   mount Commontator::Engine => '/commontator'
 
@@ -23,6 +25,8 @@ Rails.application.routes.draw do
 
   # Example of regular route:
     get 'servers/:id/banner' => 'servers#banner'
+    post 'servers/:id/vote'  => 'servers#vote', as: :vote
+    post 'payments/callback' => 'payments#callback', as: :callback
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
