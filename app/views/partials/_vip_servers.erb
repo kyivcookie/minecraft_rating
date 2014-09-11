@@ -1,0 +1,30 @@
+<%- model_class = Server -%>
+<table class="table vip-table">
+  <thead>
+  <tr>
+    <th><i class="fa fa-thumbs-o-up"></i> Rank</th>
+    <th><i class="fa fa-info-circle"></i> Name</th>
+    <th><i class="fa fa-list"></i> Server</th>
+    <th><i class="fa fa-users"></i> Players</th>
+    <th><i class="fa fa-cogs"></i> Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% servers.each do |server| %>
+      <% s = server.get_server_status %>
+      <tr>
+        <td class="rating-icon">
+          <div class="rating-icon-wrapper">
+            <i class="fa fa-star-o"></i>
+          </div>
+        </td>
+        <td class="rating-name">
+          <div> <%= link_to server.name, server, class:'server-name' %> </div>
+        </td>
+        <td class="rating-banner"><%= link_to (image_tag server.banner, width: '500'), server %></td>
+        <td class="rating-players"><b><%= s[:current_players] %> / <%= s[:max_players] %></b></td>
+        <td class="rating-status"> <div class="label label-success">online</div> </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
