@@ -16,6 +16,7 @@
  *= require_self
  */
 /* User sign in and sign forms. */
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed);
 .border-form-div {
     max-width: 300px;
     padding: 19px 29px 29px;
@@ -51,7 +52,7 @@
     color: #4c5058;
     font-weight: bold;
     margin-bottom: 6px;
-    font-family: "Myriad Pro";
+    font-family: "Roboto Condensed";
 }
 
 .footer .social-accounts .header {
@@ -74,7 +75,7 @@ a:hover, a:focus {
 
 .footer a {
     font-size: 14px;
-    font-family: "Myriad Pro";
+    font-family: "Roboto Condensed";
 }
 
 /* Sticky footer styles
@@ -153,11 +154,22 @@ body {
 
 .footer p.text-center
 {
-    font-family: "Myriad Pro";
+    font-family: "Roboto Condensed";
 }
 
 .footer .footer-list
 {
     position: relative;
     left: -21px;
+}
+
+.page-header
+{
+    margin: 0;
+    padding: 0;
+}
+
+.page-header h1
+{
+    font-size: 30px;
 }

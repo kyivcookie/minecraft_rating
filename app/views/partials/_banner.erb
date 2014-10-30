@@ -1,5 +1,5 @@
 <%= bootstrap_form_tag url: '/' do |f| %>
-    <%= image_tag @server.banner %>
+    <%= image_tag @server.banner, width:540 %>
     <br/>
     <%= f.text_area :phpbb_static, label: 'BB Code (Forums)', value:"[url=#{request.base_url}/#{controller_name}/#{@server.id}][img]#{request.base_url}/#{controller_name}/#{@server.id}/banner[/img][/url]" %>
     <%= f.text_area :phpbb_static, label: 'HTML Code (WEbSites, Social)', value:"<a href='#{request.base_url}/#{controller_name}/#{@server.id}'><img src='#{request.base_url}/#{controller_name}/#{@server.id}/banner' /></a>" %>

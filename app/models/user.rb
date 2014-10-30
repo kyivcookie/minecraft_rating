@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
 
 
   def can_vote?
-    (self.voted_at + (60*60*24) < Time.now.to_i) ? true : false
+    self.voted_at + (60*24) < Time.now.to_i
   end
 end

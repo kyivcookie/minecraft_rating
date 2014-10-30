@@ -3,7 +3,7 @@
 <%= bootstrap_form_for @server, :html => { :class => "form-horizontal server" } do |f| %>
 
     <%= f.text_field :name, label: 'Server name, display for all users*', placeholder: 'Best Minecraft Server in the WORD!' %>
-    <%= f.text_field :ip, label: 'Server Address', placeholder: 'Example: biocraft.co or 21.55.256.23', :onchange => 'console.log("asdasd")'%>
+    <%= f.text_field :ip, label: 'Server Address', placeholder: 'Example: biocraft.co or 21.55.256.23'%>
     <%= f.text_field :port, value: 25565 %>
     <%=
         f.select :protocol, [
@@ -29,3 +29,23 @@
 
 <% end %>
 </div>
+
+<script>
+  $(document).on('ready', function()
+  {
+    $('#server_ip').on('change', function()
+    {
+        $.ajax({
+            url: "/servers/check",
+            type: "POST",
+            data: { cost: $('#server_ip').val() },
+            success: function(data, str)
+            {
+                console.log(data)
+                console.log(str)
+            }
+        })
+    })
+  })
+
+</script>

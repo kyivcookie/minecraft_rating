@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  resources :payments
-
   devise_for :users
   mount Commontator::Engine => '/commontator'
 
   resources :servers
   resources :profiles, as: :profile
+  resource :payments
   get 'my_servers' => 'servers#my_servers'
 
   # Example resource route within a namespace:
@@ -15,6 +14,7 @@ Rails.application.routes.draw do
       resources :servers
       resources :users
       resources :comments
+      resources :payments
     end
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   root 'servers#index'
 
   # Example of regular route:
+    post 'servers/check'      => 'servers#check'
     get 'servers/:id/banner' => 'servers#banner'
     post 'servers/:id/vote'  => 'servers#vote', as: :vote
     post 'payments/callback' => 'payments#callback', as: :callback

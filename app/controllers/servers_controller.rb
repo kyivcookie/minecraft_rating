@@ -1,7 +1,7 @@
 require 'minecraft-query'
 class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy, :vote]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :my_servers]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :my_servers, :vote]
   # before_action :banner do
   #   layout false
   #   layout 'application', :except => :view
@@ -12,8 +12,9 @@ class ServersController < ApplicationController
   # GET /servers
   # GET /servers.json
   def index
-    @vip     = Server.where('vip = 1')
-    @servers = Server.where('vip = 0').order('votes DESC').paginate :page => params[:page], :per_page => 20
+    time = Time.now - 30.days
+    @vip     = Server.where(:vip => 1).joins(:payments).where("payments.timestamp >= #{time.to_i}").group('servers.id').order('SUM(payments.quantity) DESC')
+    @servers = Server.where(:vip => 0).order('votes DESC').paginate :page => params[:page], :per_page => 20
   end
 
   # GET /servers/1
@@ -48,6 +49,15 @@ class ServersController < ApplicationController
 
   # GET /servers/1/edit
   def edit
+  end
+
+  def check
+    ip = params[:cost]
+    vars = MinecraftPing.new(params[:cost]).check_protocol
+
+    respond_to do |format|
+      format.json {render json: vars}
+    end
   end
 
   # POST /servers

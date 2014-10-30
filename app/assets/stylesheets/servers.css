@@ -5,7 +5,7 @@
 
 body{
     color:#444;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Roboto Condensed';
 }
 
 .jumbotron {
@@ -135,4 +135,94 @@ table.rank-table .rating-icon i
 table.rank-table .rating-icon i
 {
     top:-18px
+}
+
+.section-head {
+    background: none repeat scroll 0 0 #4b5787;
+    border-color: #dedede #dedede -moz-use-text-color;
+    border-image: none;
+    border-style: solid solid none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-width: 1px 1px medium;
+    color: #fff;
+    font-family: "Roboto Condensed",helvetica,arial,sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 17px;
+    margin: 0;
+    padding: 16px 0 16px 20px;
+    text-align: left;
+}
+.section-head h1 {
+    display: inline;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 17px;
+}
+
+.bordered
+{
+    border: 1px solid #dddddd;
+}
+
+.tab-links li a {
+    background: none repeat scroll 0 0 transparent !important;
+    color: inherit !important;
+    display: inline-block;
+    height: 44px;
+    line-height: 50px;
+    margin: 0 !important;
+    padding: 0 20px !important;
+}
+a {
+    color: #7f8ab4;
+    text-decoration: none;
+}
+
+.tab-links li {
+    display: block;
+    float: left;
+}
+
+.tab-links {
+    list-style: none outside none;
+    overflow: hidden;
+}
+.tab-links {
+    padding: 0;
+}
+
+ul.tab-links
+{}
+
+.active {
+    border-bottom: 6px solid #7f8ab4;
+}
+
+
+.tab-links li:hover {
+    cursor: pointer;
+}
+.tab-links li:hover, .tab-links li:hover {
+    border-bottom: 6px solid #7f8ab4;
+    cursor: pointer;
+}
+.tab-links li:hover, .tab-links li:hover {
+    border-bottom: 6px solid #7f8ab4;
+    cursor: pointer;
+}
+
+.no-padding
+{
+    padding: 0 !important;
+}
+
+.vote-pane {
+    text-align: center;
+}
+
+.vote-pane a#btn-vote, .vote-pane button
+{
+    font-size: 36px;
 }

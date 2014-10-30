@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911125350) do
+ActiveRecord::Schema.define(version: 20141012092635) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20140911125350) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "timestamp",   default: 0
   end
 
   create_table "servers", force: true do |t|
@@ -95,7 +96,7 @@ ActiveRecord::Schema.define(version: 20140911125350) do
     t.integer  "max_players"
     t.string   "server_version"
     t.integer  "cache_time",     default: 0
-    t.boolean  "protocol",       default: true
+    t.integer  "protocol",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

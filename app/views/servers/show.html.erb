@@ -8,111 +8,123 @@
 </div>
 
 <div class="panel-body">
-  <ul class="nav nav-pills" id="tabs">
-    <li class="active">
-      <a href="#info">
-        <i class="fa fa-signal"></i>
-        Server Information
-      </a>
-    </li>
-    <li>
-      <a href="#banners">
-        <i class="fa fa-file-image-o"></i>
-        Banners
-      </a>
-    </li>
-    <!---- REPUTATION ---->
-    <% if current_user && @server.user_id == current_user.id %>
-        <li>
-          <a href="#reputation" style="background: #ffc1bc; color:#c1390d;">
-            <i class="fa fa-thumbs-o-up"></i>
-            Buy Reputation
-          </a>
-        </li>
-    <% end %>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="info">
-      <div class="col-md-6">
-        <table class="table table-bordered">
-          <tr>
-            <td><i class="fa fa-clock-o"></i> <%= model_class.human_attribute_name(:status) %></td>
-            <td>
-              <span class="label label-<%= @server.get_status[0][:label] %>"><i class="fa fa-check"></i></span>
-            </td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-random"></i> <%= model_class.human_attribute_name(:ip) %></td>
-            <td> <%= @server.ip %></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:port) %></td>
-            <td><%= @server.port %></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-tasks"></i> MOTD</td>
-            <td><%= s[:motd] %></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-users"></i> <%= model_class.human_attribute_name(:players) %></td>
-            <td><%= @server.players %></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-wrench"></i> <%= model_class.human_attribute_name(:server_version) %></td>
-            <td><%= @server.server_version %></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-flag"></i> <%= model_class.human_attribute_name(:country) %></td>
-            <td><%= @server.country %></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
-            <td>
-              <span class="label label-success"><%= @server.get_category.name %></span>
-            </td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-cog"></i> <%= model_class.human_attribute_name(:website) %></td>
-            <td><%= @server.website %></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-refresh"></i> Last Update</td>
-            <td><%= (Time.now.to_i - @server.updated_at.to_i) / 60 %> minutes ago</td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-thumbs-up"></i> <%= model_class.human_attribute_name(:votes) %></td>
-            <td id="vote_row"><%= @server.votes  %></td>
-          </tr>
-        </table>
+  <div class="col-md-6">
+    <table class="table table-bordered">
+      <tr>
+        <th colspan="2" class="section-head"><i class="fa fa-database"></i> <%= s[:motd] %></th>
+      </tr>
+      <tr>
+        <td><i class="fa fa-clock-o"></i> <%= model_class.human_attribute_name(:status) %></td>
+        <td>
+          <span class="label label-<%= @server.get_status[0][:label] %>"><i class="fa fa-check"></i></span>
+        </td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-random"></i> <%= model_class.human_attribute_name(:ip) %></td>
+        <td> <%= @server.ip %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:port) %></td>
+        <td><%= @server.port %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-tasks"></i> MOTD</td>
+        <td><%= s[:motd] %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-users"></i> <%= model_class.human_attribute_name(:players) %></td>
+        <td><%= @server.players %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-wrench"></i> <%= model_class.human_attribute_name(:server_version) %></td>
+        <td><%= @server.server_version %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-flag"></i> <%= model_class.human_attribute_name(:country) %></td>
+        <td><%= @server.country %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
+        <td>
+          <span class="label label-success"><%= @server.get_category.name %></span>
+        </td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-cog"></i> <%= model_class.human_attribute_name(:website) %></td>
+        <td><%= @server.website %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-refresh"></i> Last Update</td>
+        <td><%= (Time.now.to_i - @server.updated_at.to_i) / 60 %> minutes ago</td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-thumbs-up"></i> <%= model_class.human_attribute_name(:votes) %></td>
+        <td id="vote_row"><%= @server.votes %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-thumbs-up"></i> <%= model_class.human_attribute_name(:rating) %></td>
+        <td id="vote_row"><%= @server.payments.sum(:quantity)  %></td>
+      </tr>
+    </table>
+  </div>
 
+  <div class="col-md-6 bordered no-padding">
+    <ul class="tab-links section-head" id="tabs">
+      <!--<li class="active">-->
+        <!--<a href="#info">-->
+          <!--Server Information-->
+        <!--</a>-->
+      <!--</li>-->
+      <li class="active">
+        <a href="#banners">
+          Banners
+        </a>
+      </li>
+      <li>
+        <a href="#video">Trailer</a>
+      </li>
+      <!---- REPUTATION ---->
+      <% if current_user && @server.user_id == current_user.id %>
+          <li>
+            <a href="#reputation" style="background: #ffc1bc; color:#c1390d;">
+              <i class="fa fa-thumbs-o-up"></i>
+              Buy Reputation
+            </a>
+          </li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="banners">
+        <%= render 'partials/banner', server: @server %>
       </div>
-      <% if @server.youtube_id? %>
-          <div class="col-md-4">
-            <iframe width="450" height="310" src="<%= @server.youtube_id %>" frameborder="0" allowfullscreen></iframe>
-          </div>
-      <% else %>
-          <div class="col-md-4">
-            <% unless settings[:SERVER_AD_BANNER].empty? %>
-                <%= link_to (image_tag "/uploads/images/banners/#{settings[:SERVER_AD_BANNER]}", width: '450'), settings[:SERVER_AD_BANNER_LINK] %>
-            <% else %>
-                <%= link_to (image_tag '/uploads/images/banners/your-ad-here.jpg', width: '450'), '#' %>
-            <% end %>
+      <div class="tab-pane" id="video">
+        <% if @server.youtube_id? %>
+            <div class="col-md-4">
+              <iframe width="450" height="310" src="<%= @server.youtube_id %>" frameborder="0" allowfullscreen></iframe>
+            </div>
+        <% else %>
+            <div class="col-md-4">
+              <% unless settings[:SERVER_AD_BANNER].empty? %>
+                  <%= link_to (image_tag "/uploads/images/banners/#{settings[:SERVER_AD_BANNER]}", width: '450'), settings[:SERVER_AD_BANNER_LINK] %>
+              <% else %>
+                  <%= link_to (image_tag '/uploads/images/banners/your-ad-here.jpg', width: '450'), '#' %>
+              <% end %>
+            </div>
+        <% end %>
+      </div>
+      <!---- REPUTATION ---->
+      <% if current_user && @server.user_id == current_user.id %>
+          <div class="tab-pane" id="reputation" style="position:relative;top: 158px;">
+            <%= render 'payments/form', payment: Payment.new(server_id: @server.id, user_id: current_user.id) %>
           </div>
       <% end %>
     </div>
-    <!---- REPUTATION ---->
-    <% if current_user && @server.user_id == current_user.id %>
-    <div class="tab-pane" id="reputation" style="position:relative;top: 158px;">
-      <%= render 'payments/form', payment: Payment.new(server_id: @server.id, user_id: current_user.id) %>
-    </div>
-    <% end %>
-    <div class="tab-pane" id="banners">
-      <%= render 'partials/banner', server: @server %>
-    </div>
   </div>
 </div>
+<div class="vote-pane">
     <% if current_user && current_user.can_vote? %>
-        <%= link_to 'Vote for this server', vote_path,
+
+          <%= link_to 'Vote for this server', vote_path,
                       class: 'btn btn-success btn-large',
                       id: 'btn-vote',
                       remote: true,
@@ -120,11 +132,12 @@
                       data: {
                               disable_with: 'Submitting...'
                       }
-        %>
-    <% else %>
-        <button class="btn btn-danger" data-loading-text="azaza" disabled="disabled">You have been voted today, see you tomorrow</button>
-    <% end %>
+          %>
 
+    <% else %>
+        <button class="btn btn-danger" disabled="disabled">You have been voted today, see you tomorrow</button>
+    <% end %>
+</div>
 <% if current_user && current_user.id == @server.user_id %>
     <%= link_to t('.back', :default => t("helpers.links.back")),
                 servers_path, :class => 'btn btn-default'  %>

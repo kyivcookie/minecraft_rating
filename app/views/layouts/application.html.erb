@@ -53,9 +53,9 @@
           <ul class="nav navbar-nav">
             <li><%= link_to 'Home', '/'  %></li>
             <% if user_signed_in? %>
+                <li><%= link_to 'My Servers', my_servers_path %></li>
                 <%= drop_down 'My account' do %>
                     <%= menu_item 'Add Server', new_server_path %>
-                    <%= menu_item 'My Servers', my_servers_path %>
                     <%= menu_item 'My Profile', '/profiles' %>
                     <%= menu_item 'Change Password', new_user_password_path %>
                     <%= menu_item 'Logout', destroy_user_session_path, :method => :delete %>
@@ -68,7 +68,7 @@
                         <%= menu_item 'Categories', admin_categories_path %>
                         <%= menu_item 'Comments Managment', admin_comments_path %>
                         <%= menu_item 'Statistics', '#' %>
-                        <%= menu_item 'Payments', '#' %>
+                        <%= menu_item 'Payments', admin_payments_path %>
                         <%= menu_item 'Reset Votes', '#' %>
                     <% end %>
                 <% end %>

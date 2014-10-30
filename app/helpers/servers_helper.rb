@@ -10,12 +10,70 @@ end
 # http://wiki.vg/Server_List_Ping
 ##
 class MinecraftPing
-  def initialize(host, port=25565)
+  def initialize(host, port=25565, protocol = 0)
     @host = host
     @port = port
+    @protocol = protocol
   end
 
-  def ping
+  def check_protocol
+    if new_query
+      2
+    else
+      if old_query
+        1
+      else
+        0
+      end
+    end
+  end
+
+  def check
+    # if @protocol > 1
+    #   new_query
+    # else
+    #   old_query
+    # end
+    new_query
+  end
+
+  def new_query
+    request = [
+        "\x00\x04",
+        [@host.size].pack('c'),
+        @host,
+        [@port].pack('n'),
+        "\x01"].join
+
+    request = [request.size].pack('c') + request
+    socket =  TCPSocket.open(@host, @port)
+
+    socket.write(request)
+    socket.write("\x01\x00")
+
+    begin
+      timeout(10) do
+        text = socket.read.force_encoding('ISO-8859-15').encode('UTF-8')
+        text = (JSON.parse text[5, text.length]).symbolize_keys
+        cl = ''
+        text[:description]['text'].each_byte { |x|  cl << x unless x > 128   }
+        # raise  text[:version][:name].inspect
+        {
+            :protocol => text[:version]['protocol'],
+            :minecraft_version => text[:version]['name'],
+            :motd => cl,
+            :current_players => text[:players]['online'],
+            :max_players => text[:players]['max']
+        }
+      end
+    end
+    rescue StandardError => e
+      nil
+  end
+
+
+
+  def old_query
     socket = TCPSocket.open(@host, @port)
     # packet identifier & payload ...
     socket.write([0xFE, 0x01, 0xFA].pack('CCC'))
@@ -28,7 +86,6 @@ class MinecraftPing
     begin
       timeout(1) do
         # read server response
-
         if socket.read(1).unpack('C').first != 0xFF # Kick packet
           raise 'unexpected server response packet'
         end
@@ -49,7 +106,7 @@ class MinecraftPing
         max_players = resp.shift.to_i
 
         return {
-            :protocol_version => protocol,
+            :protocol => protocol,
             :minecraft_version => version,
             :motd => motd,
             :current_players => players,
@@ -58,24 +115,7 @@ class MinecraftPing
       end
     end
     rescue StandardError => e
-      if e
-        timeout(1) do
-          s = TCPSocket.open(@host, @port)
-
-          s.puts "\xFE\x01"
-          repl = s.gets
-          s.close
-          qstring = repl[3,repl.length].force_encoding("utf-16be").encode("utf-8")
-          qarray = qstring.split("\0")
-          qdict = {}
-          @protocol_version = qarray[1]
-          @server_version = qarray[2]
-          @motd = qarray[3]
-          @players_online = qarray[4]
-          @players_max = qarray[5]
-          raise qarray
-        end
-      end
+      return nil
   end
 
   private
@@ -86,6 +126,33 @@ class MinecraftPing
     rescue
       [s.length].pack('n') + s.encode('utf-16be').force_encoding('ASCII-8BIT')
     end
+  end
+
+  def read_var(socket)
+    i = 0
+    j = 0
+
+    while true
+      k = socket.read
+
+      if k === FALSE
+        return 0
+      end
+
+      k = k.ord
+
+      i |= ( k & 0x7f ) << (j+1) * 7
+
+      if j > 5
+        return false
+      end
+
+      if (k & 0x80) != 128
+        break
+      end
+    end
+
+    i
   end
 
   def decode_string(s)
