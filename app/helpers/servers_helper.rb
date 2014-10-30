@@ -34,7 +34,8 @@ class MinecraftPing
     # else
     #   old_query
     # end
-    new_query
+    # new_query
+    nil
   end
 
   def new_query
