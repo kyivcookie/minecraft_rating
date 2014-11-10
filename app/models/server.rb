@@ -1,3 +1,5 @@
+require_relative('../../lib/server_updater')
+
 class Server < ActiveRecord::Base
   mount_uploader :banner, BannerUploader
   # acts_as_commontator
@@ -25,55 +27,47 @@ class Server < ActiveRecord::Base
     ]
   end
 
-  # def get_server_status
-  #   status = MinecraftPing.new(self.ip, self.port ? self.port : nil, self).check
-  #   if self.cache_time.to_i < Time.now.to_i
-  #     if status
-  #       self.protocol       =   status[:protocol]
-  #       self.server_version =   status[:minecraft_version]
-  #       self.description    =   status[:motd]
-  #       self.players        =   status[:current_players]
-  #       self.max_players    =   status[:max_players]
-  #       self.status         =   1
-  #     else
-  #       self.status = 0
-  #     end
-  #     self.cache_time = Time.now.to_i + (60*10)
-  #     self.save
-  #     set_server_vars 0
-  #   status
-  #   else
-  #     self.save
-  #     set_server_vars
-  #   end
-  # end
+  def get_label
+    self.status ? "<div class='label label-success'>#{get_status_text}" : "<div class='label label-success'>#{get_status_text}"
+  end
+
+  def get_status_text
+    self.status ? 'online' : 'offline'
+  end
 
   def get_server_status
     if self.cache_time < Time.now.to_i
-      status = MinecraftPing.new(self.ip, self.port ? self.port : nil, 1).check
-      # raise status.inspect
+      status = ServerUpdater.new(self.ip).ping
+      status = status[0]
+
       if status != nil
-        self.protocol       =   status[:protocol]
-        self.server_version =   status[:minecraft_version]
-        self.description    =   status[:motd]
-        self.players        =   status[:current_players]
-        self.max_players    =   status[:max_players]
-        self.status         =   1
-        set_server_cache
-        self.save!
-        set_server_vars
+        self.update(
+            {
+                status:1,
+                server_version: status[:version_name],
+                players: status[:players_online],
+                max_players: status[:max_players],
+                cache_time: set_server_cache
+            }
+        )
+        self
       else
-        set_server_offline
-        set_server_cache
-        set_server_vars nil
+        self.update(
+            {
+                status:0,
+                players: 0,
+                cache_time: set_server_cache
+            }
+        )
+        self
       end
     else
-      set_server_vars
+      self
     end
   end
 
   def set_server_cache
-    self.cache_time = Time.now.to_i + (60*10)
+    Time.now.to_i + (60*10)
   end
 
   def set_server_offline

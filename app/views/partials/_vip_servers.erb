@@ -25,8 +25,8 @@
           <div> <%= link_to server.name, server, class:'server-name' %> </div>
         </td>
         <td class="rating-banner"><%= link_to (image_tag server.banner, width: '500'), server %></td>
-        <td class="rating-players"><b><%= s[:current_players] %> / <%= s[:max_players] %></b></td>
-        <td class="rating-status"> <div class="label label-<%= s[:label] %>"><%= s[:status_text] %></div> </td>
+        <td class="rating-players"><b><%= s.players %> / <%= s.max_players %></b></td>
+        <td class="rating-status"> <%= s.get_label.html_safe %> </td>
       </tr>
   <% end %>
   </tbody>
