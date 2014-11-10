@@ -28,7 +28,7 @@ class Server < ActiveRecord::Base
   end
 
   def get_label
-    self.status ? "<div class='label label-success'>#{get_status_text}" : "<div class='label label-success'>#{get_status_text}"
+    self.status ? "<div class='label label-success'>#{get_status_text}" : "<div class='label label-danger'>#{get_status_text}"
   end
 
   def get_status_text
