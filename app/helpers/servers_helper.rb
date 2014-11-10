@@ -34,7 +34,7 @@ private
 
 def get_ping_data(server)
   begin
-    JSON.parse(`php "#{@script_location}" "titanmc.net"`)
+    JSON.parse(`php54 "#{@script_location}" "titanmc.net"`)
   rescue JSON::ParserError => e
     nil
   end
