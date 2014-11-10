@@ -38,15 +38,14 @@ class Server < ActiveRecord::Base
   def get_server_status
     if self.cache_time < Time.now.to_i
       status = ServerUpdater.new(self.ip).ping
-      status = status[0]
 
       if status != nil
         self.update(
             {
                 status:1,
-                server_version: status[:version_name],
-                players: status[:players_online],
-                max_players: status[:max_players],
+                server_version: status[0][:version_name],
+                players: status[0][:players_online],
+                max_players: status[0][:max_players],
                 cache_time: set_server_cache
             }
         )
