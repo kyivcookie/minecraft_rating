@@ -58,22 +58,22 @@ namespace :deploy do
     end
   end
 
+  task :link_production_db do
+    execute "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+  end
+
   # task :bundle do
   #   on roles(:app) do
   #     execute "cd #{deploy_to} && bundle install --without development test"
   #   end
   # end
 
-  after :publishing, :restart
+  after :publishing, :link_production_db
+  after :link_production_db, :restart
   # after :bundle, :restart
 
   after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
+    execute '/home/unrealm/webapps/minecraft_rating/bin/restart'
   end
 end
 
