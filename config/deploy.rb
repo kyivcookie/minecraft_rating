@@ -12,7 +12,7 @@ set :linked_dirs, %w(public/uploads)
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/home/unrealm/webapps/minecraft_rating'
-
+set :linked_dirs, fetch(:linked_dirs) + %w{public/system public/uploads}
 set :default_env, {
     'PATH' => "#{deploy_to}/bin:$PATH",
     'GEM_HOME' => "#{deploy_to}/gems",
