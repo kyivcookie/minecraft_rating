@@ -59,7 +59,9 @@ namespace :deploy do
   end
 
   task :link_production_db do
-    execute "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+    end
   end
 
   # task :bundle do
@@ -73,7 +75,12 @@ namespace :deploy do
   # after :bundle, :restart
 
   after :restart, :clear_cache do
-    execute '/home/unrealm/webapps/minecraft_rating/bin/restart'
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
   end
 end
 
