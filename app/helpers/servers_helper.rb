@@ -17,7 +17,7 @@ class ServerUpdater
   def ping
     start = Time.now
     ping = get_ping_data(@host)
-    raise ping.inspect
+
     unless ping.nil?
       [
           # :server => 'asd',
@@ -34,7 +34,7 @@ private
 
 def get_ping_data(server)
   begin
-    JSON.parse(`php54 "#{@script_location}" "titanmc.net"`)
+    JSON.parse(`php54 "/home/unrealm/webapps/minecraft_rating/current/lib/server_ping.php" "#{@host}"`)
   rescue JSON::ParserError => e
     nil
   end
