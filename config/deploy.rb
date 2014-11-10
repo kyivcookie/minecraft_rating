@@ -6,7 +6,7 @@ lock '3.2.1'
 set :application, 'minecraft_rating'
 set :repo_url, 'https://github.com/AndreyPristupa/minecraft_rating.git'
 
-set :linked_dirs, fetch(:linked_dirs) + %w{public/uploads}
+set :linked_dirs, %w(public/uploads)
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
