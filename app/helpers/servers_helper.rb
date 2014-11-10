@@ -8,7 +8,7 @@ end
 class ServerUpdater
 
   def initialize(host, port=25565, protocol = 0)
-    @script_location = File.expand_path('../../lib/server_ping.php', File.dirname(__FILE__))
+    @script_location = File.expand_path('..\..\lib\server_ping.php', File.dirname(__FILE__))
     @host = host
     @port = port
     @protocol = protocol
@@ -17,7 +17,7 @@ class ServerUpdater
   def ping
     start = Time.now
     ping = get_ping_data(@host)
-
+    raise ping.inspect
     unless ping.nil?
       [
           # :server => 'asd',
@@ -34,7 +34,7 @@ private
 
 def get_ping_data(server)
   begin
-    JSON.parse(`php "#{@script_location}" "#{@host}"`)
+    JSON.parse(`php "#{@script_location}" "titanmc.net"`)
   rescue JSON::ParserError => e
     nil
   end
