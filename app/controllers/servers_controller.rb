@@ -25,7 +25,7 @@ class ServersController < ApplicationController
   # GET /servers/1/banner
   def banner
     @server = Server.find(params[:id])
-    render :layout => false
+    send_file @server.banner.file.file, :disposition => 'inline'
   end
 
   def my_servers

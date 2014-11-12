@@ -93,7 +93,7 @@
           </li>
       <% end %>
     </ul>
-    <div class="tab-content">
+    <div class="tab-content" style="padding: 10px;">
       <div class="tab-pane active" id="banners">
         <%= render 'partials/banner', server: @server %>
       </div>
@@ -154,18 +154,15 @@
 
 
 <script>
-$(document).on('ready', function()
+$(document).on('page:receive', function()
 {
     $(document).ajaxComplete(function(status, data, xhr)
     {
-        if(data.responseText == 'voted')
-        {
             $('#btn-vote').attr('disabled', 'disabled').toggleClass('btn-success').addClass('btn-danger').text('Thanks for your vote!');
-
             var counter = $('#vote_row'),
                 count = parseInt(counter.text());
             counter.text(count + 1)
-        }
+
     })
 })
 </script>

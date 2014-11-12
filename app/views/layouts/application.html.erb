@@ -41,24 +41,22 @@
   </head>
   <body>
 
-    <div class="navbar navbar-default navbar-static-top">
+    <div class="navbar navbar-default navbar-static-top" style="background-color: #3F729B;">
       <div class="container">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><%= settings[:SITE_NAME] %></a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to 'Home', '/'  %></li>
+            <li><%= link_to ('<i class="fa fa-home"></i> Home').html_safe, '/'  %></li>
             <% if user_signed_in? %>
-                <li><%= link_to 'My Servers', my_servers_path %></li>
-                <%= drop_down 'My account' do %>
+                <li><%= link_to '<i class="fa fa-desktop"></i> My Servers'.html_safe, my_servers_path %></li>
+                <%= drop_down '<i class="fa fa-user"></i> My account'.html_safe do %>
                     <%= menu_item 'Add Server', new_server_path %>
                     <%= menu_item 'My Profile', '/profiles' %>
                     <%= menu_item 'Change Password', new_user_password_path %>
-                    <%= menu_item 'Logout', destroy_user_session_path, :method => :delete %>
                 <% end %>
                 <% if current_user.id == 1 %>
                     <%= drop_down 'Admin Panel' do %>
@@ -73,19 +71,30 @@
                     <% end %>
                 <% end %>
             <% else %>
-                <li><%= link_to 'Login', user_session_path  %></li>
-                <li><%= link_to 'Register', new_user_registration_path  %></li>
+                <li><%= link_to '<i class="fa fa-user"></i> Register'.html_safe, new_user_registration_path  %></li>
             <% end %>
-            <li><%= link_to 'Contact', '#'  %></li>
+            <li><%= link_to '<i class="fa fa-phone-square"></i> Contact'.html_safe, '#'  %></li>
+            <li><%= link_to '<i class="fa fa-star"></i> Vip Rating'.html_safe, article_path(1) %></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="jumbotron">
       <div class="container">
-        <h1>Top Minecraft Servers Minecraft Servers List</h1>
-        <p style="font-size:16px;">Here you can find the best Minecraft servers, top 10 minecraft servers and multiplayer server list. Click on server and see detailed information about server, server ip and don't forget to vote for your favourite</p>
+        <div style="display:inline-block;width: 500px">
+          <h2 style="margin-top: 3px;"><%= settings[:SITE_NAME] %></h2>
+        </div>
+        <div style="float: right;vertical-align:top;margin-top: 5px;">
+          <% if user_signed_in? %>
+            <%= link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'btn btn-default' %>
+          <% else %>
+            <%= link_to 'Login', user_session_path, class: 'btn btn-default'  %>
+          <% end %>
+        </div>
       </div>
+    </div>
+    <div class="top-banner" style="text-align: center">
+        <%= link_to (image_tag '/images/banner.jpg', height: 150), '#' %>
     </div>
     <div class="container">
       <!--<div class="panel panel-default">-->

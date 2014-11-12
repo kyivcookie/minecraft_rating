@@ -42,7 +42,7 @@ class Server < ActiveRecord::Base
       if status != nil
         self.update(
             {
-                status:1,
+                status: 1,
                 server_version: status[0][:version_name],
                 players: status[0][:players_online],
                 max_players: status[0][:max_players],

@@ -5,23 +5,10 @@
     <%= f.text_field :name, label: 'Server name, display for all users*', placeholder: 'Best Minecraft Server in the WORD!' %>
     <%= f.text_field :ip, label: 'Server Address', placeholder: 'Example: biocraft.co or 21.55.256.23'%>
     <%= f.text_field :port, value: 25565 %>
-    <%=
-        f.select :protocol, [
-            ['New Protocol', 1],
-            ['Old Protocol', 0]
-        ],{
-
-    }, {
-            #multiple: true,
-            #class: 'chzn-select'
-    }
-    %>
     <%= f.file_field :banner %>
     <%= f.url_field :website %>
     <%= f.url_field :youtube_id %>
     <%= f.select :category_id, Category.all.map {|c| [c.name, c.id]} , {label:'Categories, you can select 4 category maximum'}, {}%>
-    <%= f.text_field :votifier_key, label: ('Votofier Key, ' + link_to(' read more about Votifier', 'http://dev.bukkit.org/bukkit-plugins/votifier/', target: '_blank')).html_safe %>
-    <%= f.text_field :votifier_port %>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

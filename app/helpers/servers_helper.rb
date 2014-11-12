@@ -3,8 +3,6 @@ require 'json'
 module ServersHelper
 end
 
-
-# require_relative '../models/ping'
 class ServerUpdater
 
   def initialize(host, port=25565, protocol = 0)
@@ -20,7 +18,6 @@ class ServerUpdater
 
     unless ping.nil?
       [
-          # :server => 'asd',
           :version_name => ping["version"]["name"],
           :max_players => ping["players"]["max"],
           :players_online => ping["players"]["online"],
@@ -30,11 +27,18 @@ class ServerUpdater
   end
 end
 
+# Minimal version of PHP is 5.3.0 for f-n json_last_error() provided in this version
+# OS detect for dev
+
 private
 
 def get_ping_data(server)
   begin
-    JSON.parse(`php54 "/home/unrealm/webapps/minecraft_rating/current/lib/server_ping.php" "#{@host}"`)
+    if ENV['OS'] == 'Windows_NT'
+      JSON.parse(`php "#{@script_location}" "#{@host}"`)
+    else
+      JSON.parse(`php54 "/home/unrealm/webapps/minecraft_rating/current/lib/server_ping.php" "#{@host}"`)
+    end
   rescue JSON::ParserError => e
     nil
   end

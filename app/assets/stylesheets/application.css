@@ -13,10 +13,29 @@
  *= require_tree .
  *= require font-awesome
  *= require rails_bootstrap_forms
+ *= require bootstrap-wysihtml5
  *= require_self
  */
 /* User sign in and sign forms. */
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed);
+body {
+    background-color: rgba(238, 243, 232, 0.50);
+}
+
+.navbar-default .navbar-brand, .navbar-default .navbar-brand{
+    color:#fff;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
+    color: #4fde50;
+}
+.navbar-default .navbar-nav > li > a {
+    color:#fff;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #bbc3ff;
+}
 .border-form-div {
     max-width: 300px;
     padding: 19px 29px 29px;

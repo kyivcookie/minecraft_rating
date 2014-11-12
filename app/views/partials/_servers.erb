@@ -14,11 +14,13 @@
 <% servers.each do |server| %>
     <%
        s = server.get_server_status
+       # raise server.inspect
+       # raise
     %>
       <tr>
         <td class="rating-icon">
           <div class="rating-icon-wrapper">
-            <i><%= counter += 1 %></i>
+            <i><%= s.payments.sum(:quantity) %></i>
           </div>
         </td>
         <td class="rating-name">

@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
+//= require bootstrap-wysihtml5
+//= require bootstrap-wysihtml5/locales
 //= require_tree .
 
 
@@ -28,7 +30,7 @@ $(document).on("page:receive", function()
 $(document).on('page:load', function()
 {
     tabs.init()
-    initAdthis();
+    window['rangy'].initialized = false
 });
 var tabs = {
     init: function()
