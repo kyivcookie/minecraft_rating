@@ -1,11 +1,13 @@
 <%- model_class = Server -%>
-<% counter = 0 %>
+<% counter = page > 1 ? (page*10)+1 : page %>
 <table class="table rank-table">
   <thead>
   <tr>
-    <th><i class="fa fa-thumbs-o-up"></i> Rank</th>
+    <th></th>
+    <th><i class="fa fa-star"></i> Vip Rank</th>
+    <th><i class="fa fa-thumbs-o-up"></i> Likes </th>
     <th><i class="fa fa-info-circle"></i> Name</th>
-    <th><i class="fa fa-list"></i> Server</th>
+    <th></th>
     <th><i class="fa fa-users"></i> Players</th>
     <th><i class="fa fa-cogs"></i> Status</th>
   </tr>
@@ -20,7 +22,17 @@
       <tr>
         <td class="rating-icon">
           <div class="rating-icon-wrapper">
-            <i><%= s.payments.sum(:quantity) %></i>
+            <i style="font-size: 34px;left: -3px;"><%= counter %></i>
+          </div>
+        </td>
+        <td>
+          <div class="rating-banner">
+            <i style="font-size: 38px;font-weight:bold;color:goldenrod"><%= s.payments.sum(:quantity) %></i>
+          </div>
+        </td>
+        <td>
+          <div class="rating-banner">
+            <i style="font-size: 28px;font-weight:bold;color:darkslategray"><%= s.votes %></i>
           </div>
         </td>
         <td class="rating-name">
@@ -30,6 +42,7 @@
         <td class="rating-players"><b><%= s.players %> / <%= s.max_players %></b></td>
         <td class="rating-status"> <%= s.get_label.html_safe %> </td>
       </tr>
+  <% counter += 1 %>
 <% end %>
   </tbody>
 </table>

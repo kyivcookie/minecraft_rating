@@ -13,8 +13,11 @@ class ServersController < ApplicationController
   # GET /servers.json
   def index
     time = Time.now - 30.days
-    @vip     = Server.where(:vip => 1).joins(:payments).where("payments.timestamp >= #{time.to_i}").group('servers.id').order('SUM(payments.quantity) DESC')
+    @page = 1
     @servers = Server.where(:vip => 0).order('votes DESC').paginate :page => params[:page], :per_page => 20
+    if params[:page]
+      @page = params[:page].to_i
+    end
   end
 
   # GET /servers/1
