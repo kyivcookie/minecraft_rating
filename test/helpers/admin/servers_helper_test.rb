@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class Admin::ServersHelperTest < ActionView::TestCase
+class ServersHelperTest < ActionView::TestCase
 end
