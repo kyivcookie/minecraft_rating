@@ -2,9 +2,9 @@ class ServersPing < ActiveRecord::Base
   establish_connection(
       :adapter  => 'mysql2',
       :database => 'minecraft_rating',
-      :username => 'root',
+      :username => 'unrealm',
       :host     => 'localhost',
-      :password => '',
+      :password => 'hjujdyj',
   )
   self.table_name = 'servers'
 end
