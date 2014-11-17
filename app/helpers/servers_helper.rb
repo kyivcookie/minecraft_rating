@@ -1,28 +1,32 @@
 require 'json'
 
-module ServersHelper
-end
 
-class ServerUpdater
+module McStatus
+  class ServerUpdater < Struct.new(:servers)
+    def update!
+      time = Time.now.to_i
+      script_location = File.expand_path('..\..\lib\server_ping.php', File.dirname(__FILE__))
 
-  def initialize(host, port=25565, protocol = 0)
-    @script_location = File.expand_path('..\..\lib\server_ping.php', File.dirname(__FILE__))
-    @host = host
-    @port = port
-    @protocol = protocol
-  end
+      self.servers.each do |server|
+        ping = get_ping_data(server, script_location)
 
-  def ping
-    start = Time.now
-    ping = get_ping_data(@host)
-
-    unless ping.nil?
-      [
-          :version_name => ping["version"]["name"],
-          :max_players => ping["players"]["max"],
-          :players_online => ping["players"]["online"],
-          :created_at => start
-      ]
+        if ping.nil?
+          server.update(
+              {
+                  status: 0
+              }
+          )
+        else
+          server.update(
+              {
+                  status: 1,
+                  server_version: ping["version"]["name"],
+                  players: ping["players"]["online"],
+                  max_players: ping["players"]["max"],
+              }
+          )
+        end
+      end
     end
   end
 end
@@ -32,12 +36,13 @@ end
 
 private
 
-def get_ping_data(server)
+def get_ping_data(server, location)
   begin
+    puts location
     if ENV['OS'] == 'Windows_NT'
-      JSON.parse(`php "#{@script_location}" "#{@host}"`)
+      JSON.parse(`php "#{location}" "#{server.ip}"`)
     else
-      JSON.parse(`php54 "/home/unrealm/webapps/minecraft_rating/current/lib/server_ping.php" "#{@host}"`)
+      JSON.parse(`php54 "/home/unrealm/webapps/minecraft_rating/current/lib/server_ping.php" "#{server.ip}"`)
     end
   rescue JSON::ParserError => e
     nil

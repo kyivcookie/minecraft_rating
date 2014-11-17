@@ -15,6 +15,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'execjs'
 gem 'bootstrap-wysihtml5-rails'
 gem 'capistrano'
+gem 'whenever'
 gem 'therubyracer',  platforms: :ruby
 gem 'twitter-bootstrap-rails'
 gem 'carrierwave'

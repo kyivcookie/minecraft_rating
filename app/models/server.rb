@@ -1,5 +1,3 @@
-require_relative('../../lib/server_updater')
-
 class Server < ActiveRecord::Base
   mount_uploader :banner, BannerUploader
   # acts_as_commontator
@@ -35,34 +33,9 @@ class Server < ActiveRecord::Base
     self.status ? 'online' : 'offline'
   end
 
+  # todo refactor
   def get_server_status
-    if self.cache_time < Time.now.to_i
-      status = ServerUpdater.new(self.ip).ping
-
-      if status != nil
-        self.update(
-            {
-                status: 1,
-                server_version: status[0][:version_name],
-                players: status[0][:players_online],
-                max_players: status[0][:max_players],
-                cache_time: set_server_cache
-            }
-        )
-        self
-      else
-        self.update(
-            {
-                status:0,
-                players: 0,
-                cache_time: set_server_cache
-            }
-        )
-        self
-      end
-    else
-      self
-    end
+    self
   end
 
   def set_server_cache
