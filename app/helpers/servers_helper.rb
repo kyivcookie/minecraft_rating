@@ -30,16 +30,17 @@ module McStatus
 
   class ServerUpdater < Struct.new(:servers)
     def update!
-      time = Time.now.to_i
       script_location = File.expand_path('..\..\lib\server_ping.php', File.dirname(__FILE__))
 
       self.servers.each do |server|
         ping = get_ping_data(server, script_location)
+        time = Time.now.to_i
 
         if ping.nil?
           server.update(
               {
-                  status: 0
+                  status: 0,
+                  cache_time: time
               }
           )
         else
@@ -49,6 +50,7 @@ module McStatus
                   server_version: ping["version"]["name"],
                   players: ping["players"]["online"],
                   max_players: ping["players"]["max"],
+                  cache_time: time
               }
           )
         end
