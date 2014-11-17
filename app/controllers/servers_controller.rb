@@ -1,4 +1,4 @@
-require 'minecraft-query'
+# require 'minecraft-query'
 class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy, :vote]
   before_action :authenticate_user!, only: [:new, :edit, :update, :my_servers, :vote]
@@ -7,7 +7,7 @@ class ServersController < ApplicationController
   #   layout 'application', :except => :view
   # end
 
-  helper :servers
+  # helper :servers
 
   # GET /servers
   # GET /servers.json
