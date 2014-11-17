@@ -1,5 +1,7 @@
 require 'json'
 
+module ServersHelper
+end
 
 module McStatus
   # class ServerUpdater

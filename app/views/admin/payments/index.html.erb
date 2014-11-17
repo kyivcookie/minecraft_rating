@@ -1,0 +1,29 @@
+<!--todo add expires_at for payment + do readable time format-->
+<%- model_class = Payment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th><%= model_class.human_attribute_name('Amount') %></th>
+    <th><%= model_class.human_attribute_name('User Email') %></th>
+    <th><%= model_class.human_attribute_name('Server') %></th>
+    <th><%= model_class.human_attribute_name('Payment Date') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @admin_payments.each do |p| %>
+      <tr>
+        <td>$<%= p.amount %></td>
+        <td><%= p.user.email %></td>
+        <td><%= link_to p.server.name, p.server, target: :blank %></td>
+        <td><%= p.created_at %></td>
+      </tr>
+  <% end %>
+  <tr>
+    <td colspan="4"><strong>Total: $<%= @admin_payments.sum :amount %></strong></td>
+  </tr>
+  </tbody>
+</table>
+<%= will_paginate @admin_payments, renderer: BootstrapPagination::Rails %>
