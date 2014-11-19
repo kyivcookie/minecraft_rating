@@ -18,6 +18,7 @@ class ServersController < ApplicationController
     if params[:page]
       @page = params[:page].to_i
     end
+    expires_in 3.minutes, :public => true
   end
 
   # GET /servers/1
