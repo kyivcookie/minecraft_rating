@@ -1,6 +1,5 @@
 <%- model_class = Server -%>
 <%
-
    counter = page > 1 ? (page*10)+1 : page
 %>
 <table class="table rank-table">
@@ -35,12 +34,12 @@
         <td class="rating-players"><b><%= s.players %> / <%= s.max_players %></b></td>
         <td>
           <div class="rating-banner">
-            <i style="font-size: 28px;font-weight:bold;color:darkslategray"><%= s.votes %></i>
+            <i style="font-size: 20px;font-weight:bold;color:darkslategray"><%= s.votes %></i>
           </div>
         </td>
         <td>
           <div class="rating-banner">
-            <i style="font-size: 38px;font-weight:bold;color:goldenrod"><%= s.payments.sum(:quantity) %></i>
+            <i style="font-size: 20px;font-weight:bold;color:goldenrod"><%= s.payments.sum(:quantity) %></i>
           </div>
         </td>
         <td class="rating-status"> <%= s.get_label.html_safe %> </td>
