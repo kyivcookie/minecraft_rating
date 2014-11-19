@@ -72,7 +72,7 @@ namespace :deploy do
 
   task :assets_precompile do
     on roles(:app) do
-      execute "cd #{release_path} && RAILS_ENV=production GEM_HOME=/home/unrealm/webapps/minecraft_rating/gems PATH=/home/unrealm/webapps/minecraft_rating/bin:/usr/local/bin:$PATH bundle exec rake assets:precompile"
+      execute 'cd /home/unrealm/webapps/minecraft_rating/current && RAILS_ENV=production GEM_HOME=/home/unrealm/webapps/minecraft_rating/gems PATH=/home/unrealm/webapps/minecraft_rating/bin:/usr/local/bin:$PATH bundle exec rake assets:precompile'
     end
   end
 
