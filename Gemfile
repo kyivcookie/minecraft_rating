@@ -27,4 +27,4 @@ gem 'acts_as_votable'
 gem 'font-awesome-rails'
 gem 'gravatar_image_tag'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
-gem 'sass-rails'
+gem 'yui-compressor'
