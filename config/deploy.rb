@@ -71,7 +71,7 @@ namespace :deploy do
   # end
 
   task :assets_precompile do
-    on roles(:app) do
+    on roles(:app), in: :sequence, wait: 20 do
       execute 'cd /home/unrealm/webapps/minecraft_rating/current && RAILS_ENV=production GEM_HOME=/home/unrealm/webapps/minecraft_rating/gems PATH=/home/unrealm/webapps/minecraft_rating/bin:/usr/local/bin:$PATH bundle exec rake assets:precompile'
     end
   end

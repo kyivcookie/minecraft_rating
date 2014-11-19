@@ -5,6 +5,9 @@ class Admin::ServersController < ApplicationController
   # GET /admin/servers.json
   def index
     @admin_servers = Server.paginate :page => params[:page], :per_page => 20
+    if params[:page]
+      @page = params[:page].to_i
+    end
   end
 
   # GET /admin/servers/1

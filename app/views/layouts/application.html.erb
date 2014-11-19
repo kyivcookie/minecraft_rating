@@ -56,7 +56,7 @@
                 <%= drop_down '<i class="fa fa-user"></i> My account'.html_safe do %>
                     <%= menu_item 'Add Server', new_server_path %>
                     <%= menu_item 'My Profile', '/profiles' %>
-                    <%= menu_item 'Change Password', new_user_password_path %>
+                    <%= menu_item 'Change Password', edit_user_registration_path  %>
                 <% end %>
                 <% if current_user.id == 1 %>
                     <%= drop_down 'Admin Panel' do %>

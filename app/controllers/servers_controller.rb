@@ -32,7 +32,11 @@ class ServersController < ApplicationController
   end
 
   def my_servers
-    @servers = Server.where(:user_id => current_user.id).paginate :page => params[:page], :per_page => 2
+    @page = 1
+    @servers = Server.where(:user_id => current_user.id).paginate :page => params[:page], :per_page => 20
+    if params[:page]
+      @page = params[:page].to_i
+    end
   end
 
   def vote
@@ -40,9 +44,7 @@ class ServersController < ApplicationController
     @server.increment! :votes
     current_user.update(voted_at: Time.now.to_i)
     sleep(3)
-    respond_to do |format|
-      format.json {render :json => 'voted'}
-    end
+    render js: %(window.location.href='#{server_url(@server)}') and return
   end
 
   # GET /servers/new
