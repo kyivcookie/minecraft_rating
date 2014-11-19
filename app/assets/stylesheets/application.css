@@ -10,14 +10,14 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require_self
  *= require_tree .
  *= require font-awesome
  *= require rails_bootstrap_forms
  *= require bootstrap-wysihtml5
- *= require_self
  */
 /* User sign in and sign forms. */
-
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed);
 body {
     background-color: rgba(238, 243, 232, 0.50);
 }
@@ -100,19 +100,19 @@ a:hover, a:focus {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-    position: relative;
-    min-height: 100%;
+    position: relative !important;
+    min-height: 100%!important;
 }
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 355px;
+    margin-bottom: 355px!important;
 }
 .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    position: absolute!important;
+    bottom: 0!important;
+    width: 100%!important;
     /* Set the fixed height of the footer here */
-    height: 355px;
+    height: 355px!important;
 }
 
 
