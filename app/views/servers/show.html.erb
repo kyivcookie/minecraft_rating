@@ -37,7 +37,7 @@
       </tr>
       <tr>
         <td><i class="fa fa-flag"></i> <%= model_class.human_attribute_name(:country) %></td>
-        <td><div class="flag flag-cz" style="position:relative;top: 4px;"></div></td>
+        <td><div class="flag flag-<%= @server.country.downcase %>" style="position:relative;top: 4px;"></div></td>
       </tr>
       <tr>
         <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
