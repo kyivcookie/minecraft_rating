@@ -112,24 +112,25 @@ table.rank-table td.rating-name
 table.vip-table .rating-icon div.rating-icon-wrapper,
 table.rank-table .rating-icon div.rating-icon-wrapper
 {
+    background: #222;
+    color: #fff;
     display: inline-block;
-    height: 44px;
-    width: 44px;
-    vertical-align: inherit;
-    border-radius:8px;
-    background: #3f729b;
+    padding: 10px 15px 10px 14px;
+    line-height: 16px;
+    border-radius: 3px;
     position: relative;
-    top: 20px;
+    top: 4px;
+    margin: 0 auto;
 }
 
 table.vip-table .rating-icon i,
 table.rank-table .rating-icon i
 {
-    color: gold;
-    display: inline-block;
-    font-size: 39px;
-    position: relative;
-    top: -10px;
+    top: 2px;
+    margin: -12px -1px -1px -4px;
+    font-family: "Roboto Condensed";
+    font-size: 16px;
+    font-weight: bold;
 }
 
 table.rank-table .rating-icon i
@@ -138,7 +139,7 @@ table.rank-table .rating-icon i
 }
 
 .section-head {
-    background: none repeat scroll 0 0 #4b5787;
+    background: none repeat scroll 0 0 #3F729B;
     border-color: #dedede #dedede -moz-use-text-color;
     border-image: none;
     border-style: solid solid none;

@@ -3,20 +3,16 @@
     s = @server.get_server_status
     settings = get_settings
 %>
-<div class="page-header">
-  <h1><%=t '.title', :default => @server.name %> <div class="addthis_sharing_toolbox"></div></h1>
-</div>
-
 <div class="panel-body">
   <div class="col-md-6">
-    <table class="table table-bordered">
+    <table class="table table-bordered" style="background-color: #fff;">
       <tr>
-        <th colspan="2" class="section-head"><i class="fa fa-database"></i> <%= s[:motd] %></th>
+        <th colspan="2" class="section-head"><i class="fa fa-database"></i> <%= @server.name %></th>
       </tr>
       <tr>
         <td><i class="fa fa-clock-o"></i> <%= model_class.human_attribute_name(:status) %></td>
         <td>
-          <span class="label label-<%= @server.get_status[0][:label] %>"><i class="fa fa-check"></i></span>
+          <span class="label label-<%= @server.get_status[0][:label] %>" style="font-size: 15px;"><%= @server.get_status[0][:status] %></span>
         </td>
       </tr>
       <tr>
@@ -41,12 +37,12 @@
       </tr>
       <tr>
         <td><i class="fa fa-flag"></i> <%= model_class.human_attribute_name(:country) %></td>
-        <td><%= @server.country %></td>
+        <td><div class="flag flag-cz" style="position:relative;top: 4px;"></div></td>
       </tr>
       <tr>
         <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
         <td>
-          <span class="label label-success"><%= @server.get_category.name %></span>
+          <span class="label label-info" style="font-size: 12px;"><%= @server.get_category.name %></span>
         </td>
       </tr>
       <tr>
@@ -70,12 +66,12 @@
 
   <div class="col-md-6 bordered no-padding">
     <ul class="tab-links section-head" id="tabs">
-      <!--<li class="active">-->
-        <!--<a href="#info">-->
-          <!--Server Information-->
-        <!--</a>-->
-      <!--</li>-->
       <li class="active">
+        <a href="#info">
+          Info
+        </a>
+      </li>
+      <li>
         <a href="#banners">
           Banners
         </a>
@@ -94,7 +90,10 @@
       <% end %>
     </ul>
     <div class="tab-content" style="padding: 10px;">
-      <div class="tab-pane active" id="banners">
+      <div class="tab-pane active" id="info">
+        <%= render 'partials/server_description', server:@server %>
+      </div>
+      <div class="tab-pane" id="banners">
         <%= render 'partials/banner', server: @server %>
       </div>
       <div class="tab-pane" id="video">
