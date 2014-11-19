@@ -10,11 +10,11 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require_self
  *= require_tree .
  *= require font-awesome
  *= require rails_bootstrap_forms
  *= require bootstrap-wysihtml5
- *= require_self
  */
 /* User sign in and sign forms. */
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed);
