@@ -70,7 +70,14 @@ namespace :deploy do
   #   end
   # end
 
+  task :assets_precompile do
+    on roles(:app) do
+      execute "cd #{release_path} && RAILS_ENV=production GEM_HOME=/home/unrealm/webapps/minecraft_rating/gems PATH=/home/unrealm/webapps/minecraft_rating/bin:/usr/local/bin:$PATH bundle exec rake assets:precompile"
+    end
+  end
+
   after :publishing, :link_production_db
+  after :assets_precompile, :link_production_db
   after :link_production_db, :restart
   # after :bundle, :restart
 
