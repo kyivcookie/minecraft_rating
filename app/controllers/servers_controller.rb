@@ -71,8 +71,21 @@ class ServersController < ApplicationController
   def create
     @server = Server.new(server_params)
     @server.user_id = current_user.id
+    cats = params[:server][:category_id]
+
     respond_to do |format|
       if @server.save
+
+        cats.each do |c|
+          unless c.empty?
+            stc = ServersToCategories.new
+            stc.category_id = c
+            stc.server_id = @server.id
+
+            stc.save
+          end
+        end
+
         format.html { redirect_to @server, notice: 'Server was successfully created.' }
         format.json { render :show, status: :created, location: @server }
       else

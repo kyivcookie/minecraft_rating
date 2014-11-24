@@ -17,6 +17,7 @@ class Server < ActiveRecord::Base
   validates_processing_of :banner
 
   has_many :payments
+  has_many :servers_to_categories, :class_name => 'ServersToCategories'
 
   def get_status
     [
@@ -64,7 +65,7 @@ class Server < ActiveRecord::Base
     }
   end
 
-  def get_category
-    Category.find self.category_id
-  end
+  # def get_category
+  #   Category.find self.category_id
+  # end
 end

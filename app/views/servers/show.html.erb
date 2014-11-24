@@ -46,7 +46,11 @@
       <tr>
         <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
         <td>
-          <span class="label label-info" style="font-size: 12px;"><%= @server.get_category.name %></span>
+            <% @server.servers_to_categories.each do |c| %>
+              <span class="label label-info" style="font-size: 12px;">
+                <%= c.category.name %>
+              </span>
+             <% end %>
         </td>
       </tr>
       <tr>

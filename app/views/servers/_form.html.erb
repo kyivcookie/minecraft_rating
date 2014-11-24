@@ -13,7 +13,7 @@
         <%= country_code_select(:server, :country, {}, {},class:'form-control') %>
       </div>
     <%= f.url_field :youtube_id %>
-    <%= f.select :category_id, Category.all.map {|c| [c.name, c.id]} , {label:'Categories, you can select 4 category maximum'}, {}%>
+    <%= f.select :category_id, Category.all.map {|c| [c.name, c.id]} , {label:'Categories, you can select multiple categories (ctrl+click)'}, {multiple:true}%>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
