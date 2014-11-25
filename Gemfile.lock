@@ -85,6 +85,8 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metamagic (3.1.6)
+      rails (>= 3.0.0)
     mime-types (1.25.1)
     minecraft-query (1.0.0)
     minitest (5.4.1)
@@ -182,6 +184,7 @@ DEPENDENCIES
   i18n_country_select
   jbuilder (~> 2.0)
   jquery-rails
+  metamagic
   minecraft-query
   mysql2
   rack-cache

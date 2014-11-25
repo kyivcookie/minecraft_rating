@@ -7,6 +7,11 @@
       s.country = ' '
     end
 %>
+
+<%
+   meta title: "#{@server.name} Minecraft Server",
+        keywords: @server.name
+%>
 <div class="panel-body">
   <div class="col-md-6">
     <table class="table table-bordered" style="background-color: #fff;">
@@ -158,21 +163,6 @@
 <% end %>
 
 <%= commontator_thread(@server) %>
-
-
-<script>
-$(document).on('page:load','ready', function()
-{
-    $(document).ajaxComplete(function(status, data, xhr)
-    {
-            $('#btn-vote').attr('disabled', 'disabled').toggleClass('btn-success').addClass('btn-danger').text('Thanks for your vote!');
-            var counter = $('#vote_row'),
-                count = parseInt(counter.text());
-            counter.text(count + 1)
-
-    })
-})
-</script>
 
 <style>
   .tab-pane

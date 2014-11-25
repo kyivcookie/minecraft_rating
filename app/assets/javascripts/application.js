@@ -44,5 +44,8 @@ var tabs = {
 
 $(document).on('ready', function()
 {
+    $('#server_description').each(function(i, elem) {
+        $('#server_description').wysihtml5();
+    });
     tabs.init();
 });
