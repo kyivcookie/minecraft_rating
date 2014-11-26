@@ -89,9 +89,11 @@
           Banners
         </a>
       </li>
+      <% if @server.youtube_id? %>
       <li>
         <a href="#video">Trailer</a>
       </li>
+      <% end %>
       <!---- REPUTATION ---->
       <% if current_user && @server.user_id == current_user.id %>
           <li>
@@ -109,21 +111,13 @@
       <div class="tab-pane" id="banners">
         <%= render 'partials/banner', server: @server %>
       </div>
+      <% if @server.youtube_id? %>
       <div class="tab-pane" id="video">
-        <% if @server.youtube_id? %>
             <div class="col-md-4">
               <iframe width="450" height="310" src="<%= @server.youtube_id %>" frameborder="0" allowfullscreen></iframe>
             </div>
-        <% else %>
-            <div class="col-md-4">
-              <% unless settings[:SERVER_AD_BANNER].empty? %>
-                  <%= link_to (image_tag "/uploads/images/banners/#{settings[:SERVER_AD_BANNER]}", width: '450'), settings[:SERVER_AD_BANNER_LINK] %>
-              <% else %>
-                  <%= link_to (image_tag '/uploads/images/banners/your-ad-here.jpg', width: '450'), '#' %>
-              <% end %>
-            </div>
-        <% end %>
       </div>
+      <% end %>
       <!---- REPUTATION ---->
       <% if current_user && @server.user_id == current_user.id %>
           <div class="tab-pane" id="reputation" style="position:relative;top: 158px;">

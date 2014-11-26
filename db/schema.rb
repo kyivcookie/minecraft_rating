@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124202038) do
+ActiveRecord::Schema.define(version: 20141126095332) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -137,6 +137,10 @@ ActiveRecord::Schema.define(version: 20141124202038) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "voted_at",               default: 0
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

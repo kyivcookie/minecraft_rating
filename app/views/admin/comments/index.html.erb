@@ -8,7 +8,7 @@
     <th><%= model_class.human_attribute_name(:id) %></th>
     <th><%= model_class.human_attribute_name('Comment') %></th>
     <th><%= model_class.human_attribute_name('Comment Target') %></th>
-    <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
@@ -17,9 +17,12 @@
         <td><%= link_to c.id, admin_category_path(c) %></td>
         <td><%= c.body %></td>
         <td><%= c.thread.commontable ? (link_to c.thread.commontable.name, server_path(c.thread.commontable), target: :blank) : '' %></td>
-        <td></td>
         <td>
-        <!--TODO add comments actions for admin::comments controller -->
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      admin_comment_path(c),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
   <% end %>
