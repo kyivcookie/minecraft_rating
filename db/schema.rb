@@ -83,13 +83,6 @@ ActiveRecord::Schema.define(version: 20141126095332) do
     t.integer  "timestamp",   default: 0
   end
 
-  create_table "server_votes", force: true do |t|
-    t.integer  "server_id"
-    t.integer  "votes_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "servers", force: true do |t|
     t.integer  "user_id"
     t.integer  "category_id"
