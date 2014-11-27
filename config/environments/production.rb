@@ -23,13 +23,15 @@ Rails.application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
 
-  config.action_mailer.default_url_options = {:host => 'yourdomain.com'}
+  config.action_mailer.default_url_options = {:host => 'minecraftservers-ip.com'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      :address  => "127.0.0.1",
-      :port     => 25,
-      :password => 'lolo',
-      :domain   => 'yourdomain.com'
+      :address  => 'smtp.webfaction.com',
+      :port     => 587,
+      :domain   => 'minecraftservers-ip.com',
+      :user_name => 'minecraftservers',
+      :password => 'hjujdyj'
+
   }
 
   # Compress JavaScripts and CSS.

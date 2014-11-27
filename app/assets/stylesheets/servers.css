@@ -51,7 +51,7 @@ body{
 
 .label.label-danger
 {
-    background-color: darkred;
+    background-color: #C62B2B;
 }
 
 .container .row {
@@ -115,6 +115,7 @@ table.vip-table .rating-players,    table.rank-table .rating-players,
 table.vip-table .rating-status,     table.rank-table .rating-status
 {
     line-height: 82px;
+
 }
 
 table.vip-table .rating-players,
