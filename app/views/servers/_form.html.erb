@@ -7,14 +7,16 @@
     <%= f.text_field :port, value: 25565 %>
     <%= f.text_area :description, as: :wysihtml5 %>
     <%= f.file_field :banner %>
-    <%= f.url_field :website %>
+    <%= f.url_field :website, placeholder: 'http://example.com' %>
       <div class="form-group">
         <label class="control-group" for="">Select server country</label>
         <%= country_code_select(:server, :country, {}, {},class:'form-control') %>
       </div>
     <%= f.url_field :youtube_id %>
-    <%= f.select :category_id, Category.all.map {|c| [c.name, c.id]} , {label:'Categories, you can select multiple categories (ctrl+click)'}, {multiple:true}%>
-
+    <div class="checkbox_group">
+      <label for="">Categories</label>
+      <%= f.collection_check_boxes :category_id, Category.all, :id, :name,label: '' %>
+    </div>
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             servers_path, :class => 'btn btn-default' %>
