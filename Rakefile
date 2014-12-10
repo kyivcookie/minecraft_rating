@@ -4,6 +4,7 @@
 require File.expand_path('../config/application', __FILE__)
 
 require_relative 'app/models/ping/serversping'
+require_relative 'app/models/ping/serversuptime'
 require_relative 'app/helpers/servers_helper'
 
 namespace :mc do

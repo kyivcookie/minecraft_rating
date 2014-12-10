@@ -1,6 +1,6 @@
 <%= image_tag @server.banner, width:540 %>
 <br/><br/>
-<%= @server.description.html_safe %>
+<%= @server.description ? @server.description.html_safe : '' %>
 <div class="addthis">
   <!-- Go to www.addthis.com/dashboard to customize your tools -->
   <div class="addthis_sharing_toolbox"></div>

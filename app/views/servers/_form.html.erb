@@ -13,9 +13,9 @@
         <%= country_code_select(:server, :country, {}, {},class:'form-control') %>
       </div>
     <%= f.url_field :youtube_id %>
-    <div class="checkbox_group">
-      <label for="">Categories</label>
-      <%= f.collection_check_boxes :category_id, Category.all, :id, :name,label: '' %>
+    <label for="" style="position: relative;left: -14px;">Categories</label>
+    <div class="checkbox_group no-label">
+      <%= f.collection_check_boxes :category_id, Category.all, :id, :name, label: '&nbsp'.html_safe, class:'no-label', :checked => @server.servers_to_categories.map{|c| c.category_id} %>
     </div>
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

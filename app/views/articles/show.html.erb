@@ -1,8 +1,11 @@
 <p id="notice"><%= notice %></p>
-
-<%= @article.description.html_safe %>
-<br/>
-
-
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+<div class="page-header">
+  <h1><%=t '.title', :default => @article.title %></h1>
+</div>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= @article.description.html_safe %>
+    </div>
+  </div>
+</div>

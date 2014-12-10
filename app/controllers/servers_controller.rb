@@ -99,6 +99,19 @@ class ServersController < ApplicationController
   def update
     respond_to do |format|
       if @server.update(server_params)
+        @server.servers_to_categories.destroy_all
+
+        cats = params[:server][:category_id]
+        cats.each do |c|
+          unless c.empty?
+            stc = ServersToCategories.new
+            stc.category_id = c
+            stc.server_id = @server.id
+
+            stc.save
+          end
+        end
+
         format.html { redirect_to @server, notice: 'Server was successfully updated.' }
         format.json { render :show, status: :ok, location: @server }
       else

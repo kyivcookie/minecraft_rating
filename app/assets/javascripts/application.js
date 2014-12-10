@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require turbolinks
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
 //= require_tree .
@@ -44,8 +43,8 @@ var tabs = {
 
 $(document).on('ready', function()
 {
-    $('#server_description').each(function(i, elem) {
-        $('#server_description').wysihtml5();
+    $('#server_description, #contact_description, #article_description').each(function(i, elem) {
+        $('#server_description, #contact_description, #article_description').wysihtml5();
     });
     tabs.init();
 });

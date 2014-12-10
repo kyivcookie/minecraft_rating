@@ -36,6 +36,17 @@ module McStatus
         ping = get_ping_data(server, script_location)
         time = Time.now.to_i
 
+        if server.serversuptime.nil?
+          uptime = Serversuptime.new
+          uptime.server_id = server.id
+          uptime.down = 0
+          uptime.up = 0
+
+          uptime.save!
+        else
+          uptime = server.serversuptime
+        end
+
         if ping.nil?
           server.update(
               {
@@ -43,6 +54,7 @@ module McStatus
                   cache_time: time
               }
           )
+          uptime.increment! :down
         else
           server.update(
               {
@@ -53,6 +65,7 @@ module McStatus
                   cache_time: time
               }
           )
+          uptime.increment! :up
         end
       end
     end

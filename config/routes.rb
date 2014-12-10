@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :servers
   resources :profiles, as: :profile
   resource :payments
+  resource :contact
+  resource :feeds
+  resource :search, :controller => 'search'
   get 'my_servers' => 'servers#my_servers'
 
   # Example resource route within a namespace:

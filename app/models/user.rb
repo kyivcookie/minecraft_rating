@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   acts_as_votable
   acts_as_voter
 
+  has_many :servers
 
   def can_vote?
     self.voted_at + (60*24) < Time.now.to_i

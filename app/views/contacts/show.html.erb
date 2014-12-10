@@ -1,0 +1,11 @@
+<div class="border-form-div"  style="max-width: 550px;">
+
+  <%= bootstrap_form_for 'contact', :html => { :class => "form-horizontal server" } do |f| %>
+    <%= f.label 'Contact Us' %>
+      <%= f.text_field 'name', label:'Your Name', required:true %>
+      <%= f.text_field 'email', label:'Your Email Address', required:true, value: @email, disabled:@disabled %>
+      <%= f.text_area 'description', label:'Your Message' , as: :wysihtml5,required:true %>
+      <%= f.submit 'Send', :class => 'btn btn-primary' %>
+  <% end %>
+
+</div>

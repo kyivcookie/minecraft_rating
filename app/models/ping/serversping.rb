@@ -6,5 +6,16 @@ class Serversping < ActiveRecord::Base
       :host     => 'localhost',
       :password => 'hjujdyj',
   )
+
+  # establish_connection(
+  #     :adapter  => 'mysql2',
+  #     :database => 'minecraft_rating',
+  #     :username => 'root',
+  #     :host     => 'localhost',
+  #     :password => '',
+  # )
+
   self.table_name = 'servers'
+
+  has_one :serversuptime, foreign_key: :server_id
 end

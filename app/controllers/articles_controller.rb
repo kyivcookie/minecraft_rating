@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, only: [:new, :edit, :update, :index]
+  before_action :check_rights, only: [:new,:edit,:update,:index]
   # GET /articles
   # GET /articles.json
   def index
@@ -25,7 +26,7 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
-
+    @article.owner_id = current_user.id
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
@@ -65,6 +66,14 @@ class ArticlesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
+    end
+
+    def check_rights
+      if current_user && current_user.id != 1
+        respond_to do |f|
+          f.html {redirect_to servers_path, notice: 'Access restricted'}
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

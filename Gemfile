@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '4.1.5'
 gem 'mysql2'
@@ -16,8 +16,9 @@ gem 'bootstrap_form'
 gem 'i18n_country_select'
 gem 'metamagic'
 gem 'rack-cache'
+gem 'nokogiri'
 gem 'jquery-rails'
-gem 'turbolinks'
+# gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'minecraft-query'

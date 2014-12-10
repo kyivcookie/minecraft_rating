@@ -19,6 +19,10 @@
         <th colspan="2" class="section-head"><i class="fa fa-database"></i> <%= @server.name %></th>
       </tr>
       <tr>
+        <td><i class="fa fa-male"></i> Owner</td>
+        <td><%= @server.user.full_name %></td>
+      </tr>
+      <tr>
         <td><i class="fa fa-clock-o"></i> <%= model_class.human_attribute_name(:status) %></td>
         <td>
           <span class="label label-<%= @server.get_status[0][:label] %>" style="font-size: 15px;"><%= @server.get_status[0][:status] %></span>
@@ -33,10 +37,6 @@
         <td><%= @server.port %></td>
       </tr>
       <tr>
-        <td><i class="fa fa-tasks"></i> MOTD</td>
-        <td><%= s[:motd] %></td>
-      </tr>
-      <tr>
         <td><i class="fa fa-users"></i> <%= model_class.human_attribute_name(:players) %></td>
         <td><%= @server.players %></td>
       </tr>
@@ -46,7 +46,10 @@
       </tr>
       <tr>
         <td><i class="fa fa-flag"></i> <%= model_class.human_attribute_name(:country) %></td>
-        <td><div class="flag flag-<%= s.country.downcase %>" style="position:relative;top: 4px;"></div></td>
+        <td>
+          <div class="flag flag-<%= s.country.downcase %>" style="position:relative;top: 4px;display: inline-block;"></div>
+          <div style="display: inline-block;"><%= I18n.t(s.country, :scope => :countries, :default => 'missing') %></div>
+        </td>
       </tr>
       <tr>
         <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
@@ -60,7 +63,11 @@
       </tr>
       <tr>
         <td><i class="fa fa-cog"></i> <%= model_class.human_attribute_name(:website) %></td>
-        <td><%= @server.website %></td>
+        <td><%= link_to @server.website,@server.website %></td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-clock-o"></i> Up Time</td>
+        <td><%= (@server.uptime.up * 100) / (@server.uptime.up + @server.uptime.down) %>%</td>
       </tr>
       <tr>
         <td><i class="fa fa-refresh"></i> Last Update</td>
@@ -129,7 +136,7 @@
 </div>
 <div class="vote-pane">
     <% if current_user && current_user.can_vote? %>
-
+      <% if current_user.can_vote? %>
           <%= link_to 'Vote for this server', vote_path,
                       class: 'btn btn-success btn-large',
                       id: 'btn-vote',
@@ -139,9 +146,19 @@
                               disable_with: 'Submitting...'
                       }
           %>
-
+      <% else %>
+          <button class="btn btn-danger" disabled="disabled">You have been voted today, see you tomorrow</button>
+      <% end %>
     <% else %>
-        <button class="btn btn-danger" disabled="disabled">You have been voted today, see you tomorrow</button>
+      <%= link_to 'Vote for this server', '/users/sign_in',
+                  class: 'btn btn-success btn-large',
+                  id: 'btn-vote',
+                  remote: true,
+                  method: :post,
+                  data: {
+                          disable_with: 'Submitting...'
+                  }
+      %>
     <% end %>
 </div>
 <% if current_user && current_user.id == @server.user_id %>

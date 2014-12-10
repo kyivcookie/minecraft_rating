@@ -1,0 +1,8 @@
+<div class="border-form-div"  style="max-width: 550px;">
+    <%= bootstrap_form_for 'search', method: :get ,:html => { :class => "form-horizontal server" } do |f| %>
+        <%= f.text_field 'q', label:'Search' %>
+      <%= f.submit nil, value:'Search' %>
+    <% end %>
+</div>
+
+<%= render 'partials/servers', servers: @result, page:1, paginate:false %>

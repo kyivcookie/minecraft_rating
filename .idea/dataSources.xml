@@ -5,24 +5,19 @@
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://127.0.0.1/minecraft_rating</jdbc-url>
-      <user-name>root</user-name>
       <libraries />
     </data-source>
     <data-source source="LOCAL" name="Rails minecraft_rating: test" uuid="c6469ea1-f46c-44ff-aa05-1b427cb09a32">
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://127.0.0.1/minecraft_rating_test</jdbc-url>
-      <user-name>root</user-name>
       <libraries />
     </data-source>
     <data-source source="LOCAL" name="Rails minecraft_rating: production" uuid="a28349f3-a090-4442-80fc-83fd87db5a9c">
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://127.0.0.1/mincraft_rating</jdbc-url>
-      <user-name>unrealm</user-name>
-      <user-password>dfc2dfc0dfdfdfc0dfcedfd3dfc0</user-password>
       <libraries />
     </data-source>
   </component>
 </project>
-

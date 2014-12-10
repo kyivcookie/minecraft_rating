@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141126095332) do
+ActiveRecord::Schema.define(version: 20141209104802) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -123,6 +123,14 @@ ActiveRecord::Schema.define(version: 20141126095332) do
     t.datetime "updated_at"
   end
 
+  create_table "uptimes", force: true do |t|
+    t.integer  "server_id"
+    t.integer  "down"
+    t.integer  "up"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -141,6 +149,7 @@ ActiveRecord::Schema.define(version: 20141126095332) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "full_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

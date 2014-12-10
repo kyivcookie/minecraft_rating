@@ -16,6 +16,8 @@ class Server < ActiveRecord::Base
   validates_integrity_of :banner
   validates_processing_of :banner
 
+  belongs_to :user
+  has_one :uptime
   has_many :payments
   has_many :servers_to_categories, :class_name => 'ServersToCategories'
 

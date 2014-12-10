@@ -1,25 +1,24 @@
 <%- model_class = Server -%>
 <%
+   defined? paginate ? paginate = true : paginate = false
    counter = page > 1 ? (page*10)+1 : page
 %>
 <table class="table rank-table">
   <thead>
   <tr>
-    <th></th>
+    <th><i class="fa fa-thumbs-up"></i> Rank</th>
     <th><i class="fa fa-info-circle"></i> Name</th>
-    <th></th>
+    <th><i class="fa fa-database"></i> Server</th>
     <th><i class="fa fa-users"></i> Players</th>
     <th><i class="fa fa-thumbs-o-up"></i> Likes </th>
     <th><i class="fa fa-star"></i> Vip Rank</th>
-    <th><i class="fa fa-cogs"></i> Status</th>
+    <th><i class="fa fa-tachometer"></i> Status</th>
   </tr>
   </thead>
   <tbody>
 <% servers.each do |server| %>
     <%
        s = server.get_server_status
-       # raise server.inspect
-       # raise
     %>
       <tr>
         <td class="rating-icon">
@@ -48,5 +47,6 @@
 <% end %>
   </tbody>
 </table>
-
-<%= will_paginate servers, renderer: BootstrapPagination::Rails %>
+<% if paginate  %>
+    <%= will_paginate servers, renderer: BootstrapPagination::Rails %>
+<% end %>

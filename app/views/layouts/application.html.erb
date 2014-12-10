@@ -63,9 +63,9 @@
                         <%= menu_item 'Settings', admin_settings_path %>
                         <%= menu_item 'Server Managment', admin_servers_path %>
                         <%= menu_item 'Users Managment', admin_users_path %>
+                        <%= menu_item 'Articles', articles_path %>
                         <%= menu_item 'Categories', admin_categories_path %>
                         <%= menu_item 'Comments Managment', admin_comments_path %>
-                        <%= menu_item 'Statistics', '#' %>
                         <%= menu_item 'Payments', admin_payments_path %>
                         <%= menu_item 'Reset Votes', '#' %>
                     <% end %>
@@ -73,7 +73,7 @@
             <% else %>
                 <li><%= link_to '<i class="fa fa-user"></i> Register'.html_safe, new_user_registration_path  %></li>
             <% end %>
-            <li><%= link_to '<i class="fa fa-phone-square"></i> Contact'.html_safe, '#'  %></li>
+            <li><%= link_to '<i class="fa fa-phone-square"></i> Contact'.html_safe, contact_path  %></li>
             <li><%= link_to '<i class="fa fa-star"></i> Vip Rating'.html_safe, article_path(1) %></li>
           </ul>
         </div>
@@ -107,42 +107,40 @@
       <!--</div>-->
     </div> <!-- /container -->
     <div class="footer">
-      <hr/>
+
       <div class="container">
         <div class="wrapper">
           <div class="row">
-            <div class="col-md-4">
-              <%= image_tag '/uploads/images/logo_footer.png' %>
-            </div>
+
             <div class="col-md-4 footer-list">
               <div class="row">
-                <div class="col-xs-4">
-                  <ul>
-                    <li class="header">About Us</li>
-                    <li><a href="#">Jobs</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Server</a></li>
-                    <li><a href="#">Terms</a></li>
-                  </ul>
-                </div>
-                <div class="col-xs-4">
-                  <ul>
-                    <li class="header">About Us</li>
-                    <li><a href="#">Jobs</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Server</a></li>
-                    <li><a href="#">Terms</a></li>
-                  </ul>
-                </div>
-                <div class="col-xs-4">
-                  <ul>
-                    <li class="header">About Us</li>
-                    <li><a href="#">Jobs</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Server</a></li>
-                    <li><a href="#">Terms</a></li>
-                  </ul>
-                </div>
+                <!--<div class="col-xs-4">-->
+                  <!--<ul>-->
+                    <!--<li class="header">About Us</li>-->
+                    <!--<li><a href="#">Jobs</a></li>-->
+                    <!--<li><a href="#">Blog</a></li>-->
+                    <!--<li><a href="#">Server</a></li>-->
+                    <!--<li><a href="#">Terms</a></li>-->
+                  <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="col-xs-4">-->
+                  <!--<ul>-->
+                    <!--<li class="header">About Us</li>-->
+                    <!--<li><a href="#">Jobs</a></li>-->
+                    <!--<li><a href="#">Blog</a></li>-->
+                    <!--<li><a href="#">Server</a></li>-->
+                    <!--<li><a href="#">Terms</a></li>-->
+                  <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="col-xs-4">-->
+                  <!--<ul>-->
+                    <!--<li class="header">About Us</li>-->
+                    <!--<li><a href="#">Jobs</a></li>-->
+                    <!--<li><a href="#">Blog</a></li>-->
+                    <!--<li><a href="#">Server</a></li>-->
+                    <!--<li><a href="#">Terms</a></li>-->
+                  <!--</ul>-->
+                <!--</div>-->
               </div>
             </div>
           </div>
@@ -158,14 +156,19 @@
                     <li><a class="facebook" href="<%= settings[:FACEBOOK_LINK] %>" target="_blank"><i class="fa fa-facebook fa-lg "></i></a></li>
                 <% end %>
                 <% if settings[:INSTAGRAM_LINK] %>
-                    <li><a class="instagram" href="<%= settings[:INSTAGRAM_LINK] %>" target="_blank"><i class="fa fa-instagram fa-lg "></i></a></li>
+                    <li><a class="instagram" href="<%= settings[:INSTAGRAM_LINK] %>" target="_blank"><i class="fa fa-google fa-lg "></i></a></li>
                 <% end %>
               </ul>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <p class="text-center"><%= settings[:SITE_NAME] %> © <%= Time.now.year %></p>
+              <p class="text-center">
+                <%= settings[:SITE_NAME] %> © <%= Time.now.year %>
+                <%= link_to 'Terms', article_path(2) %>
+                <%= link_to 'Privacy', article_path(3) %>
+                <%= link_to 'Help', article_path(4) %>
+              </p>
             </div>
           </div>
         </div>
