@@ -225,6 +225,10 @@ ul.tab-links
     border-bottom: 6px solid #7f8ab4;
 }
 
+.tab-pane.active
+{
+    border-bottom: none;
+}
 
 .tab-links li:hover {
     cursor: pointer;
@@ -265,3 +269,15 @@ ul.tab-links
     display: none;
 }
 
+.navbar-right form
+{
+    position: relative;
+    top: 8px;
+    right: 15px;
+}
+
+.payment-form
+{
+    position: relative;
+    top:25px;
+}

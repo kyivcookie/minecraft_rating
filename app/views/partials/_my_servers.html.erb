@@ -8,18 +8,16 @@
   <tr>
     <th><i class="fa fa-thumbs-up"></i> Rank</th>
     <th><i class="fa fa-info-circle"></i> Name</th>
-    <th><i class="fa fa-database"></i> Server</th>
-    <th><i class="fa fa-users"></i> Players</th>
     <th><i class="fa fa-thumbs-o-up"></i> Likes </th>
     <th><i class="fa fa-star"></i> Vip Rank</th>
-    <th><i class="fa fa-tachometer"></i> Status</th>
+    <th><i class="fa fa-money"></i> Buy Vip Rank</th>
   </tr>
   </thead>
   <tbody>
-<% servers.each do |server| %>
-    <%
-       s = server.get_server_status
-    %>
+  <% servers.each do |server| %>
+      <%
+         s = server.get_server_status
+      %>
       <tr>
         <td class="rating-icon">
           <div class="rating-icon-wrapper">
@@ -29,8 +27,6 @@
         <td class="rating-name">
           <div> <%= link_to server.name, server, class:'server-name' %> </div>
         </td>
-        <td class="rating-banner"><%= link_to (image_tag server.banner, width: '500'), server %></td>
-        <td class="rating-players"><b><%= s.players %> / <%= s.max_players %></b></td>
         <td>
           <div class="rating-banner">
             <i style="font-size: 20px;font-weight:bold;color:darkslategray"><%= s.votes %></i>
@@ -41,10 +37,21 @@
             <i style="font-size: 20px;font-weight:bold;color:goldenrod"><%= s.payments.sum(:quantity) %></i>
           </div>
         </td>
-        <td class="rating-status"> <%= s.get_label.html_safe %> </td>
+        <td>
+          <div class="payment-form">
+            <%= bootstrap_form_for 'payment', url: '/payments', method: :post do |f| %>
+                <%= f.hidden_field :server_id, value: server.id %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <!--todo insert value to settings -->
+                <%= f.hidden_field :amount, value:50 %>
+                <%= f.text_field :quantity, hide_label:true, placeholder:'Count' %>
+                <%= f.submit %>
+            <% end %>
+          </div>
+        </td>
       </tr>
-  <% counter += 1 %>
-<% end %>
+      <% counter += 1 %>
+  <% end %>
   </tbody>
 </table>
 <% if paginate  %>

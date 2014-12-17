@@ -51,7 +51,9 @@ module McStatus
           server.update(
               {
                   status: 0,
-                  cache_time: time
+                  cache_time: time,
+                  players: 0,
+                  max_players: 0,
               }
           )
           uptime.increment! :down

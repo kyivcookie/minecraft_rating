@@ -51,6 +51,7 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><%= link_to ('<i class="fa fa-home"></i> Home').html_safe, '/'  %></li>
+
             <% if user_signed_in? %>
                 <li><%= link_to '<i class="fa fa-desktop"></i> My Servers'.html_safe, my_servers_path %></li>
                 <%= drop_down '<i class="fa fa-user"></i> My account'.html_safe do %>
@@ -76,6 +77,11 @@
             <li><%= link_to '<i class="fa fa-phone-square"></i> Contact'.html_safe, contact_path  %></li>
             <li><%= link_to '<i class="fa fa-star"></i> Vip Rating'.html_safe, article_path(1) %></li>
           </ul>
+          <%= menu_group :pull => :right do %>
+              <%= bootstrap_form_for 'search', url: '/search', method: :get, class:'search_form' do |f| %>
+                  <%= f.text_field :q, icon: 'user', hide_label: true, placeholder: 'Search' %>
+              <% end %>
+          <% end %>
         </div>
       </div>
     </div>

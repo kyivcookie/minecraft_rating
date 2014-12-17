@@ -6,6 +6,8 @@
     if s.country.nil?
       s.country = ' '
     end
+
+   uptime = (@server.uptime.up * 100).to_f / (@server.uptime.up + @server.uptime.down).to_f
 %>
 
 <%
@@ -67,7 +69,7 @@
       </tr>
       <tr>
         <td><i class="fa fa-clock-o"></i> Up Time</td>
-        <td><%= (@server.uptime.up * 100) / (@server.uptime.up + @server.uptime.down) %>%</td>
+        <td><%= (uptime * 10).to_i.to_f / 10  %>%</td>
       </tr>
       <tr>
         <td><i class="fa fa-refresh"></i> Last Update</td>
@@ -121,7 +123,7 @@
       <% if @server.youtube_id? %>
       <div class="tab-pane" id="video">
             <div class="col-md-4">
-              <iframe width="450" height="310" src="<%= @server.youtube_id %>" frameborder="0" allowfullscreen></iframe>
+              <iframe width="450" height="310" src="//<%= @server.youtube_id.gsub('watch?v=', 'embed/').gsub('https://', '')  %>" frameborder="0" allowfullscreen></iframe>
             </div>
       </div>
       <% end %>
@@ -135,7 +137,7 @@
   </div>
 </div>
 <div class="vote-pane">
-    <% if current_user && current_user.can_vote? %>
+    <% if current_user %>
       <% if current_user.can_vote? %>
           <%= link_to 'Vote for this server', vote_path,
                       class: 'btn btn-success btn-large',
@@ -152,12 +154,7 @@
     <% else %>
       <%= link_to 'Vote for this server', '/users/sign_in',
                   class: 'btn btn-success btn-large',
-                  id: 'btn-vote',
-                  remote: true,
-                  method: :post,
-                  data: {
-                          disable_with: 'Submitting...'
-                  }
+                  id: 'btn-vote'
       %>
     <% end %>
 </div>
