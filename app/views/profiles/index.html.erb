@@ -1,13 +1,8 @@
-<div class="page-header">
-  <h1><%=t '.title', :default => "Hello, #{@profile.full_name}" %></h1>
-</div>
 <div class="panel panel-default">
   <div class="panel-body">
-      <div class="col-md-2">
-        <%= gravatar_image_tag(@profile.email.gsub('spam', 'mdeering'), :alt => 'Michael Deering', :gravatar => {:size =>150, default: :wavatar}) %>
-      </div>
-    <div class="col-md-4">
-      <ul style="list-style: none">
+    <div class="col-md-2">
+      <%= gravatar_image_tag(@profile.email.gsub('spam', 'mdeering'), :alt => 'Michael Deering', :gravatar => {:size =>150, default: :wavatar}) %>
+      <ul style="list-style: none; padding: 0;">
         <li>
           <strong>Username:</strong> <%= @profile.email %>
         </li>
@@ -16,30 +11,26 @@
         </li>
       </ul>
     </div>
-  </div>
-  <table class="table table-bordered" style="background:white;">
-    <thead>
-    <tr>
-      <th>My Comments</th>
-      <th>Server</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @comments.each do |c| %>
+    <div class="col-md-10">
+      <h4>My Comments</h4>
+      <table class="table table-bordered" style="background:white;">
+        <thead>
         <tr>
-            <td><%= c.body %></td>
-            <td><%= c.thread.commontable ? (link_to c.thread.commontable.name, server_path(c.thread.commontable), target: :blank) : '' %></td>
+          <th>Comment</th>
+          <th>Server</th>
         </tr>
-    <% end %>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+        <% @comments.each do |c| %>
+            <tr>
+              <td><%= c.body %></td>
+              <td><%= c.thread.commontable ? (link_to c.thread.commontable.name, server_path(c.thread.commontable), target: :blank) : '' %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<div id="rssincl-box-container-945660"></div>
-<script type="text/javascript">
-    (function() {
-        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
-        s.src = 'http://output41.rssinclude.com/output?type=asyncjs&id=945660&hash=0a0b9e7343e5a7c5493465ecc0285153';
-        document.getElementsByTagName('head')[0].appendChild(s);
-    })();
-</script>
+
 

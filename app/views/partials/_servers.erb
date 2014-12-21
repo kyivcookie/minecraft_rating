@@ -48,8 +48,12 @@
   </tbody>
 </table>
 <% if paginate  %>
-    <div class="total-entires">
-      <%= page_entries_info servers %>
+    <div class="total-entires" style="float: right; position: relative;top: 27px;;">
+      Tracking <%= servers.count %> Servers
     </div>
-    <%= will_paginate servers, renderer: BootstrapPagination::Rails, total_entries: servers %>
+
+    <div class="paginate">
+      <%= will_paginate servers, renderer: BootstrapPagination::Rails, total_entries: servers %>
+    </div>
+
 <% end %>

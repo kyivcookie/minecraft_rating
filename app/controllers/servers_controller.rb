@@ -84,7 +84,7 @@ class ServersController < ApplicationController
             stc.save
           end
         end
-        Uptime.create({up: 1,down:0, server_id: @server.id})
+
         format.html { redirect_to @server, notice: 'Server was successfully created.' }
         format.json { render :show, status: :created, location: @server }
       else
