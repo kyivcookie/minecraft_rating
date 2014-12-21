@@ -5,6 +5,7 @@ class Server < ActiveRecord::Base
   acts_as_commontable
 
   after_create :create_uptime
+  before_create :set_user_id
 
   validates :ip,
             :port,
@@ -28,6 +29,12 @@ class Server < ActiveRecord::Base
         label: self.status ? 'success' : 'danger',
         status: self.status ? 'online' : 'offline',
     ]
+  end
+
+  def set_user_id
+    if self.user_id.nil?
+      self.user_id = 1
+    end
   end
 
   def create_uptime
