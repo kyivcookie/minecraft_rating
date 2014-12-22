@@ -18,16 +18,21 @@ module Crawler
         puts "description: #{mcs.description}"
         puts "tags: #{mcs.tags.join(', ')}"
         puts "image length: #{mcs.image.length}"
-        Server.find_or_create_by(name: mcs.name).tap do |server|
-          server.banner = mcs.image
-          server.ip = mcs.ip
-          server.description = mcs.description
-          server.country = mcs.country
-          server.port = 80
-          mcs.tags.map do |name|
-            ServersToCategories.new(server_id: server.id, category_id: Category.find_or_create_by(name: name).id)
-          end
-        end.save!
+        puts "website: #{mcs.website}"
+
+        server = Server.find_or_create_by(name: mcs.name)
+        server.banner = mcs.image
+        server.ip = mcs.ip
+        server.description = mcs.description
+        server.country = mcs.country
+        server.port = 80
+        server.website = mcs.website
+        server.save!
+        mcs.tags.each do |name|
+          stc = ServersToCategories.find_or_create_by(server_id: server.id)
+          stc.category_id = Category.find_or_create_by(name: name).id
+          stc.save!
+        end
       end
 
       puts '=' * 80
@@ -60,6 +65,10 @@ module Crawler
 
     def description
       doc.xpath('//p[@class="desc"]').text.strip
+    end
+
+    def website
+      doc.xpath('//td[text()="Website"]/following-sibling::td[1]').text.strip
     end
 
     def image
