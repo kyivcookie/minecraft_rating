@@ -29,9 +29,7 @@ module Crawler
         server.website = mcs.website
         server.save!
         mcs.tags.each do |name|
-          stc = ServersToCategories.find_or_create_by(server_id: server.id)
-          stc.category_id = Category.find_or_create_by(name: name).id
-          stc.save!
+          stc = ServersToCategories.create!(server_id: server.id, category_id: Category.find_or_create_by(name: name).id)
         end
       end
 
