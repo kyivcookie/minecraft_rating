@@ -50,7 +50,9 @@
         <td><i class="fa fa-flag"></i> <%= model_class.human_attribute_name(:country) %></td>
         <td>
           <div class="flag flag-<%= s.country.downcase %>" style="position:relative;top: 4px;display: inline-block;"></div>
-          <div style="display: inline-block;"><%= I18n.t(s.country, :scope => :countries, :default => 'missing') %></div>
+          <div style="display: inline-block;">
+            <%= s.country.length > 2 ? s.country : I18n.t(s.country, :scope => :countries, :default => 'missing') %>
+          </div>
         </td>
       </tr>
       <tr>

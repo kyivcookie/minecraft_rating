@@ -15,7 +15,7 @@
     <%= f.url_field :youtube_id %>
     <label for="" style="position: relative;left: -14px;">Categories</label>
     <div class="checkbox_group no-label">
-      <%= f.collection_check_boxes :category_id, Category.all, :id, :name, label: '&nbsp'.html_safe, class:'no-label', :checked => @server.servers_to_categories.map{|c| c.category_id} %>
+      <%= f.collection_check_boxes :category_id, Category.all, :id, :name, label: '&nbsp'.html_safe, class:'no-label', :checked => 1 %>
     </div>
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
@@ -23,3 +23,11 @@
 
 <% end %>
 </div>
+
+<script>
+        var ids = <%= @server.servers_to_categories.map{|c| p c.category.id} %>;
+        ids.forEach(function(i)
+        {
+            document.getElementById('server_category_id_'+i).setAttribute('checked','checked')
+        })
+</script>
