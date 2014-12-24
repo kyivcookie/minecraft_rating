@@ -3,7 +3,7 @@ require 'net/http'
 
 module Crawler
 
-  def self.call(start, stop)
+  def self.call(start, stop, interval)
     (start..stop).each do |server_id|
       puts '=' * 80
       mcs = MineCraftServer.new(server_id)
@@ -34,19 +34,23 @@ module Crawler
       end
 
       puts '=' * 80
-      sleep(5.minutes)
+      sleep(interval.seconds)
     end
   end
 
   class MineCraftServer
-
+    attr_accessor :response
     def initialize(server_id, host='http://minecraftservers.org')
       @response = Net::HTTP.get_response((URI("#{host}/server/#{server_id}")))
       @host = host
     end
 
     def skip?
-      !@response.code.to_i.eql?(200)
+      if @response.code.to_i.eql?(200)
+        offline?
+      else 
+        true
+      end
     end
 
     def name
@@ -80,7 +84,9 @@ module Crawler
       doc.xpath('//td[text()="IP"]/following-sibling::td[1]').text.strip
     end
 
-    protected
+    def offline?
+      (doc.css('span.tag.offline').present? && doc.css('span.tag.online').empty?)
+    end
 
     def doc
       @doc ||= Nokogiri::HTML(@response.body)
