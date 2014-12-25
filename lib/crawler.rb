@@ -47,45 +47,59 @@ module Crawler
 
     def skip?
       if @response.code.to_i.eql?(200)
-        offline?
-      else 
+        offline? || nobanner?
+      else
         true
       end
     end
 
     def name
-      doc.xpath('//div[@class="section-head"]/h1').text.strip
+      @name ||= doc.xpath('//div[@class="section-head"]/h1').text.strip
     end
 
     def country
-      doc.xpath('//td[text()="Country"]/following-sibling::td[1]').text.strip
+      @country ||= doc.css('span.flag')
+      .tap do | span |  
+        return 'US' if span.empty?
+      end
+      .attr('class')
+      .value
+      .split
+      .reject { |name| name.downcase.eql?('flag') }
+      .first.tap do | code | 
+        return 'US' unless I18nCountrySelect::Countries::COUNTRY_CODES.include? code 
+      end
     end
 
     def tags
-      doc.xpath('//td[@class="tags"]/a').map(&:text).map(&:strip)
+      @tags ||= doc.xpath('//td[@class="tags"]/a').map(&:text).map(&:strip)
     end
 
     def description
-      doc.xpath('//p[@class="desc"]').text.strip
+      @description ||= doc.xpath('//p[@class="desc"]').text.strip
     end
 
     def website
-      doc.xpath('//td[text()="Website"]/following-sibling::td[1]').text.strip
+      @website ||= doc.xpath('//td[text()="Website"]/following-sibling::td[1]').text.strip
     end
 
     def image
       file = Pathname(doc.xpath('//div[@id="info"]/img').attr('src').value)
-      CarrierWaveStringIO.new(Net::HTTP.get_response(URI("#{@host}/#{file.to_s}")).body).tap do |string_io|
+      @image ||= CarrierWaveStringIO.new(Net::HTTP.get_response(URI("#{@host}/#{file.to_s}")).body).tap do |string_io|
         string_io.original_filename = file.basename.to_s
       end
     end
 
     def ip
-      doc.xpath('//td[text()="IP"]/following-sibling::td[1]').text.strip
+      @ip ||= doc.xpath('//td[text()="IP"]/following-sibling::td[1]').text.strip
     end
 
     def offline?
       (doc.css('span.tag.offline').present? && doc.css('span.tag.online').empty?)
+    end
+
+    def nobanner?
+      doc.xpath('//div[@id="info"]/img').attr('src').value.include? 'nobanner.png'
     end
 
     def doc
