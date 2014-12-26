@@ -20,7 +20,13 @@ module Crawler
         puts "image length: #{mcs.image.length}"
         puts "website: #{mcs.website}"
 
-        server = Server.find_or_create_by(name: mcs.name)
+        begin
+          server = Server.find_or_create_by(name: mcs.name)  
+        rescue Errno::EHOSTUNREACH
+          puts 'retring'
+          retry 
+        end
+        
         server.banner = mcs.image
         server.ip = mcs.ip
         server.description = mcs.description
@@ -28,6 +34,7 @@ module Crawler
         server.port = 80
         server.website = mcs.website
         server.save!
+
         mcs.tags.each do |name|
           stc = ServersToCategories.create!(server_id: server.id, category_id: Category.find_or_create_by(name: name).id)
         end
