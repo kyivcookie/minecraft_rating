@@ -3,7 +3,7 @@ require 'net/http'
 
 module Crawler
 
-  def self.call(start, stop)
+  def self.call(start, stop, interval)
     (start..stop).each do |server_id|
       puts '=' * 80
       mcs = MineCraftServer.new(server_id)
@@ -20,7 +20,13 @@ module Crawler
         puts "image length: #{mcs.image.length}"
         puts "website: #{mcs.website}"
 
-        server = Server.find_or_create_by(name: mcs.name)
+        begin
+          server = Server.find_or_create_by(name: mcs.name)  
+        rescue Errno::EHOSTUNREACH
+          puts 'retring'
+          retry 
+        end
+        
         server.banner = mcs.image
         server.ip = mcs.ip
         server.description = mcs.description
@@ -28,59 +34,80 @@ module Crawler
         server.port = 80
         server.website = mcs.website
         server.save!
+
         mcs.tags.each do |name|
           stc = ServersToCategories.create!(server_id: server.id, category_id: Category.find_or_create_by(name: name).id)
         end
       end
 
       puts '=' * 80
-      sleep(5.minutes)
+      sleep(interval.seconds)
     end
   end
 
   class MineCraftServer
-
+    attr_accessor :response
     def initialize(server_id, host='http://minecraftservers.org')
       @response = Net::HTTP.get_response((URI("#{host}/server/#{server_id}")))
       @host = host
     end
 
     def skip?
-      !@response.code.to_i.eql?(200)
+      if @response.code.to_i.eql?(200)
+        offline? || nobanner?
+      else
+        true
+      end
     end
 
     def name
-      doc.xpath('//div[@class="section-head"]/h1').text.strip
+      @name ||= doc.xpath('//div[@class="section-head"]/h1').text.strip
     end
 
     def country
-      doc.xpath('//td[text()="Country"]/following-sibling::td[1]').text.strip
+      @country ||= doc.css('span.flag')
+      .tap do | span |  
+        return 'US' if span.empty?
+      end
+      .attr('class')
+      .value
+      .split
+      .reject { |name| name.downcase.eql?('flag') }
+      .first.tap do | code | 
+        return 'US' unless I18nCountrySelect::Countries::COUNTRY_CODES.include? code 
+      end
     end
 
     def tags
-      doc.xpath('//td[@class="tags"]/a').map(&:text).map(&:strip)
+      @tags ||= doc.xpath('//td[@class="tags"]/a').map(&:text).map(&:strip)
     end
 
     def description
-      doc.xpath('//p[@class="desc"]').text.strip
+      @description ||= doc.xpath('//p[@class="desc"]').text.strip
     end
 
     def website
-      doc.xpath('//td[text()="Website"]/following-sibling::td[1]').text.strip
+      @website ||= doc.xpath('//td[text()="Website"]/following-sibling::td[1]').text.strip
     end
 
     def image
       file = Pathname(doc.xpath('//div[@id="info"]/img').attr('src').value)
-      CarrierWaveStringIO.new(Net::HTTP.get_response(URI("#{@host}/#{file.to_s}")).body).tap do |string_io|
+      @image ||= CarrierWaveStringIO.new(Net::HTTP.get_response(URI("#{@host}/#{file.to_s}")).body).tap do |string_io|
         string_io.original_filename = file.basename.to_s
       end
     end
 
     def ip
-      doc.xpath('//td[text()="IP"]/following-sibling::td[1]').text.strip
+      @ip ||= doc.xpath('//td[text()="IP"]/following-sibling::td[1]').text.strip
     end
 
-    protected
+    def offline?
+      (doc.css('span.tag.offline').present? && doc.css('span.tag.online').empty?)
+    end
+
+    def nobanner?
+      doc.xpath('//div[@id="info"]/img').attr('src').value.include? 'nobanner.png'
+    end
 
     def doc
       @doc ||= Nokogiri::HTML(@response.body)
