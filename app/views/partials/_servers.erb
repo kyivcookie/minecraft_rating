@@ -1,7 +1,6 @@
 <%- model_class = Server -%>
 <%
    defined? paginate ? paginate = true : paginate = false
-   counter = page > 1 ? (page*10)+1 : page
 %>
 <table class="table rank-table">
   <thead>
@@ -16,14 +15,14 @@
   </tr>
   </thead>
   <tbody>
-<% servers.each do |server| %>
+<% servers.each_with_index do |server, index| %>
     <%
        s = server.get_server_status
     %>
       <tr>
         <td class="rating-icon">
           <div class="rating-icon-wrapper">
-            <i style="font-size: 16px;"><%= counter %></i>
+            <i style="font-size: 16px;"><%= servers.offset + index + 1 %></i>
           </div>
         </td>
         <td class="rating-name">
@@ -43,7 +42,6 @@
         </td>
         <td class="rating-status"> <%= s.get_label.html_safe %> </td>
       </tr>
-  <% counter += 1 %>
 <% end %>
   </tbody>
 </table>

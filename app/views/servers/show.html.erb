@@ -51,10 +51,11 @@
         <td>
           <div class="flag flag-<%= s.country.downcase %>" style="position:relative;top: 4px;display: inline-block;"></div>
           <div style="display: inline-block;">
-            <%= s.country.length > 2 ? s.country : I18n.t(s.country, :scope => :countries, :default => 'missing') %>
+            <%= s.country.empty? ? s.country : I18n.t(s.country, :scope => :countries, :default => 'missing') %>
           </div>
         </td>
       </tr>
+      <% if @server.servers_to_categories %>
       <tr>
         <td><i class="fa fa-tasks"></i> <%= model_class.human_attribute_name(:category_id) %></td>
         <td>
@@ -65,10 +66,14 @@
              <% end %>
         </td>
       </tr>
+      <% end %>
+
+      <% if @server.website %>
       <tr>
         <td><i class="fa fa-cog"></i> <%= model_class.human_attribute_name(:website) %></td>
         <td><%= link_to @server.website,@server.website %></td>
       </tr>
+      <% end %>
       <tr>
         <td><i class="fa fa-clock-o"></i> Up Time</td>
         <td><%= (uptime * 10).to_i.to_f / 10  %>%</td>
