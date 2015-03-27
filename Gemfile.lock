@@ -29,6 +29,7 @@ GEM
       tzinfo (~> 1.1)
     acts_as_votable (0.10.0)
     arel (5.0.1.20140414130214)
+    bcrypt (3.1.7-x64-mingw32)
     bcrypt (3.1.7-x86-mingw32)
     bootstrap-wysihtml5-rails (0.3.3.1)
       railties (>= 3.0)
@@ -96,6 +97,8 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
+    nokogiri (1.6.5-x64-mingw32)
+      mini_portile (~> 0.6.0)
     nokogiri (1.6.5-x86-mingw32)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
@@ -126,6 +129,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sitemap_generator (5.0.5)
+      builder
     sprockets (2.12.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -168,6 +173,7 @@ GEM
     yui-compressor (0.12.0)
 
 PLATFORMS
+  x64-mingw32
   x86-mingw32
 
 DEPENDENCIES
@@ -192,6 +198,7 @@ DEPENDENCIES
   rack-cache
   rails (= 4.1.5)
   sdoc (~> 0.4.0)
+  sitemap_generator
   sprockets
   therubyracer
   twitter-bootstrap-rails

@@ -30,3 +30,4 @@ gem 'font-awesome-rails'
 gem 'gravatar_image_tag'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 gem 'yui-compressor'
+gem 'sitemap_generator'
